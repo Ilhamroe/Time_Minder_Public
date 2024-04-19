@@ -1,3 +1,3 @@
-# time_minder
+# TimeMinder
+Time management app with customization features for productivity
 
-A new Flutter project.
