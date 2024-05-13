@@ -366,8 +366,7 @@ class _DetailPageState extends State<DetailPage> {
                           fontSize: 12,
                         ),
                       ),
-                      trailing: (dataList[index]['elapsed'] ==
-                              dataList[index]['timer'])
+                      trailing: (dataList[index]['elapsed'] >=  dataList[index]['timer'])
                           ? Image.asset(
                               "assets/images/vector.png",
                             )

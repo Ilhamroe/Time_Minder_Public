@@ -11,7 +11,7 @@ import 'package:time_minder/widgets/common/providers.dart';
 import 'package:time_minder/widgets/common/timer_list_page_hold.dart';
 import 'package:time_minder/widgets/common/timer_recommendations_page.dart';
 import 'package:provider/provider.dart';
-import 'package:time_minder/widgets/modal_timer/add_modal.dart';
+import 'package:time_minder/widgets/modal_timer/edit_modal.dart';
 
 final logger = Logger();
 typedef ModalCloseCallback = void Function(int? id);
@@ -49,6 +49,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
     final List<Map<String, dynamic>> data = await SQLHelper.getAllData();
     setState(() {
       _allData = data;
+      updateSelectedItems([]);
       isLoading = false;
     });
   }
@@ -101,7 +102,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(70),
               ),
-              child: ModalAdd(id: id),
+              child: EditModal(id: id),
             ),
           ),
         ],
@@ -257,7 +258,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                                     // Get the ID of the selected item
                                     int id = selectedItems.first;
                                     // Show the edit modal for the selected item
-                                    _showModal((int? id) {}, id);
+                                    _showModal((int? id) {}, _allData[id]['id']);
                                   } /* => _showModal((int? id) {}, _allData[index]['id'])*/,
                                   icon: SvgPicture.asset(
                                       "assets/images/edit_ui.svg",
@@ -353,23 +354,17 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                                                 /*  --------------------------------HANDLER DELETE------------------------------------------- */
                                                 child: TextButton(
                                                   onPressed: () async {
-                                                    setState(() {
-                                                      if (selectedItems.length >
-                                                          2) {
-                                                        for (int id
-                                                            in selectedItems) {
-                                                          SQLHelper.deleteData(
-                                                              id);
-                                                        }
-                                                        _refreshData();
-                                                        Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                const NavbarBottom(),
-                                                          ),
-                                                        );
+                                                    if (selectedItems
+                                                        .isNotEmpty) {
+                                                      for (int id
+                                                          in selectedItems) {
+                                                        _deleteData(
+                                                            _allData[id]['id']);
                                                       }
+                                                    }
+                                                    setState(() {
+                                                      _refreshData();
+                                                      Navigator.pop(context);
                                                     });
                                                   },
                                                   child: const Text(
@@ -496,7 +491,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                     return _allData.isEmpty
                         ? const Center(child: Text(""))
                         : ListTimerPageHold(
-                            isSettingPressed: isSettingPressed,
+                            allData: _allData,
                           );
                   }
                 },
@@ -525,7 +520,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                         ],
                       )
                     : ListTimerPageHold(
-                        isSettingPressed: isSettingPressed,
+                      allData: _allData,
                       ),
               )
             ],

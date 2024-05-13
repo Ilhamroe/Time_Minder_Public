@@ -134,7 +134,7 @@ class _NavbarBottomState extends State<NavbarBottom> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: Container(
-          height: MediaQuery.of(context).size.width * 0.14.h,
+          height: MediaQuery.of(context).size.width * 0.15.h,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(

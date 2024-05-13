@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_minder/database/db_helper.dart';
 import 'package:time_minder/services/onboarding_routes.dart';
@@ -10,15 +12,15 @@ import 'package:time_minder/widgets/modal_timer/custom_text.dart';
 import 'package:time_minder/widgets/modal_timer/setting_break.dart';
 import 'package:time_minder/widgets/modal_timer/setting_time.dart';
 
-class ModalAdd extends StatefulWidget {
-  const ModalAdd({super.key, this.id});
+class EditModal extends StatefulWidget {
+  const EditModal({Key? key, this.id}) : super(key: key);
   final int? id;
 
   @override
-  State<ModalAdd> createState() => _ModalAddState();
+  State<EditModal> createState() => _EditModalState();
 }
 
-class _ModalAddState extends State<ModalAdd> {
+class _EditModalState extends State<EditModal> {
   final GlobalKey<SettingTimeWidgetState> _settingTimeWidgetKey =
       GlobalKey<SettingTimeWidgetState>();
 
@@ -26,9 +28,9 @@ class _ModalAddState extends State<ModalAdd> {
       GlobalKey<SettingBreakWidgetState>();
 
   int? id;
-  int _counter = 0;
-  int _counterBreakTime = 0;
-  int _counterInterval = 0;
+  late int _counter;
+  late int _counterBreakTime;
+  late int _counterInterval;
   bool isLoading = false;
   bool statusSwitch = false;
   bool hideContainer = true;
@@ -62,6 +64,22 @@ class _ModalAddState extends State<ModalAdd> {
       _counter = timerValue;
       _counterBreakTime = data[0]['rest'] ?? 0;
       _counterInterval = data[0]['interval'] ?? 0;
+    });
+
+  }
+
+  TextEditingController breakTimeController = TextEditingController();
+  TextEditingController intervalController = TextEditingController();
+
+  void setBreakTimeCounter(int value) {
+    setState(() {
+      _counterBreakTime = value;
+    });
+  }
+
+  void setIntervalCounter(int value) {
+    setState(() {
+      _counterInterval = value;
     });
   }
 
@@ -281,7 +299,8 @@ class _ModalAddState extends State<ModalAdd> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const CustomTextField(
-                                  labelText: "Aktifkan mode istirahat"),
+                                labelText: "Aktifkan mode istirahat",
+                              ),
                               const Spacer(),
                               CupertinoSwitchAdaptiveWidget(
                                 statusSwitch: statusSwitch,
@@ -334,7 +353,7 @@ class _ModalAddState extends State<ModalAdd> {
                       children: [
                         Expanded(
                           child: CustomButton(
-                            text: 'Reset',
+                            text: '  Reset  ',
                             primaryColor: Colors.white,
                             onPrimaryColor: cetaceanBlue,
                             borderSideColor: cetaceanBlue,

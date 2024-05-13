@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
@@ -40,6 +42,7 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
   late DateTime endTime;
   DateTime? pauseTime;
   var pauseCount = 0;
+  var istirahatCount = 0;
 
   void _pauseOrResume() {
     setState(() {
@@ -73,12 +76,12 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
   }
 
   void addData() async {
-    final elapsed = ((_timer + (_rest * _interval)) * 60) -
+    final elapsed = (_timer * 60) -
         (endTime
             .difference(DateTime.now().subtract(Duration(seconds: pauseCount)))
             .inSeconds) -
-        ((_rest * _interval) * 60);
-    final completed = elapsed >= (_timer * 60) ? 1 : 0;
+        (_rest * 60 * istirahatCount);
+    final completed = elapsed >= ((_timer * 60) + (_rest * 60 * istirahatCount)) ? 1 : 0;
 
     await DBCalendar.createData(
       _title,
@@ -139,6 +142,7 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
         _cDController.restart(
             duration: _jobsTimer[++_currentJobIndex].duration);
         if (_jobsTimer[_currentJobIndex].type == 'ISTIRAHAT') {
+          istirahatCount++;
           _player.play(AssetSource('sounds/start.wav'));
           _showNotification("Waktunya Istirahat");
         }
