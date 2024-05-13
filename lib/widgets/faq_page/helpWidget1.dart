@@ -46,7 +46,8 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: pureWhite,
       appBar: AppBar(
@@ -54,17 +55,16 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
             onPressed: () {
               Navigator.pop(context);
             },
-            padding: const EdgeInsets.only(left: 19).w,
+            padding: const EdgeInsets.only(left: 20).w,
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
               width: 28,
-              height: 28,
             )),
         title: Text(
           "Menggunakan Fitur Custom Timer",
           style: TextStyle(
             fontFamily: 'Nunito-Bold',
-            fontSize: MediaQuery.of(context).size.width * 0.0525,
+            fontSize: screenSize.width * 0.0525.w,
           ),
         ),
         centerTitle: true,
@@ -73,13 +73,13 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.05),
+            horizontal: 20).w,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.0175,
+                height: screenSize.height * 0.0175.h,
               ),
               Row(
                 children: [
@@ -87,8 +87,9 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
                       child: Text(
                     "Bagaimana saya menambahkan timer dengan custom waktu istirahat?",
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.0425,
-                        fontWeight: FontWeight.bold),
+                        fontSize: screenSize.width * 0.0425.w,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Nunito',),
                   )),
                 ],
               ),
@@ -109,7 +110,7 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
                     image: "assets/images/help1-2.jpg",
                     offsetAnimation: offsetAnimation,
                     height: 250,
-                    width: 250,
+                    // width: 250,
                   ),
                   const Flexible(
                       child: HelpContentRight(
@@ -128,7 +129,7 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
                     image: "assets/images/help1-3.png",
                     offsetAnimation: offsetAnimation2,
                     height: 250,
-                    width: 250,
+                    // width: 250,
                   ),
                 ],
               ),
@@ -142,7 +143,6 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
                   Image.asset(
                     "assets/images/help1-4.png",
                     height: 350,
-                    width: 350,
                   ),
                 ],
               ),
@@ -156,7 +156,6 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
                 children: [
                   Image.asset(
                     "assets/images/help1-5.png",
-                    width: 350,
                     height: 350,
                   ),
                 ],
@@ -195,6 +194,7 @@ class HelpContent extends StatefulWidget {
 class _HelpContentState extends State<HelpContent> {
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
         Row(
@@ -204,24 +204,24 @@ class _HelpContentState extends State<HelpContent> {
               "\u2022",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: MediaQuery.of(context).size.width * 0.0375,
+                fontSize: screenSize.width * 0.0375.w,
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.02,
+              width: screenSize.width * 0.02.w,
             ),
             Flexible(
               child: Text(
                 widget.desc,
                 style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width * 0.0375,
+                  fontSize: screenSize.width * 0.0375.w,
                 ),
               ),
             ),
           ],
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.01,
+          height: screenSize.height * 0.01.h,
         )
       ],
     );
@@ -239,6 +239,7 @@ class HelpContentRight extends StatefulWidget {
 class _HelpContentRightState extends State<HelpContentRight> {
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
         Row(
@@ -246,30 +247,30 @@ class _HelpContentRightState extends State<HelpContentRight> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.03,
+              width: screenSize.width * 0.03.w,
             ),
             Flexible(
               child: Text(
                 widget.desc,
                 style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width * 0.0375,
+                  fontSize: screenSize.width * 0.0375.w,
                 ),
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.03,
+              width: screenSize.width * 0.03.w,
             ),
             Text(
               "\u2022",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: MediaQuery.of(context).size.width * 0.0375,
+                fontSize: screenSize.width * 0.0375.w,
               ),
             ),
           ],
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.01,
+          height: screenSize.height * 0.01.h,
         )
       ],
     );
@@ -278,14 +279,14 @@ class _HelpContentRightState extends State<HelpContentRight> {
 
 class SlideImage extends StatefulWidget {
   final String image;
-  final double width;
+  // final double width;
   final double height;
   final Animation<Offset> offsetAnimation;
   const SlideImage(
       {super.key,
       required this.image,
       required this.offsetAnimation,
-      required this.width,
+      // required this.width,
       required this.height});
 
   @override
@@ -296,12 +297,12 @@ class _SlideImageState extends State<SlideImage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(0),
+      padding: EdgeInsets.zero,
       child: SlideTransition(
           position: widget.offsetAnimation,
           child: Image.asset(
             widget.image,
-            width: widget.width,
+            // width: widget.width,
             height: widget.height,
           )),
     );
@@ -313,8 +314,9 @@ class CustomSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.01,
+      height: screenSize.height * 0.01.h,
     );
   }
 }
@@ -324,8 +326,9 @@ class BigSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.06,
+      height: screenSize.height * 0.06.h,
     );
   }
 }

@@ -9,6 +9,7 @@ class HelpFive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: pureWhite,
       appBar: AppBar(
@@ -16,7 +17,7 @@ class HelpFive extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            padding: const EdgeInsets.only(left: 19).w,
+            padding: const EdgeInsets.only(left: 20).w,
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
               width: 28,
@@ -26,7 +27,7 @@ class HelpFive extends StatelessWidget {
           "Fitur Detail Timer dan Kalender",
           style: TextStyle(
             fontFamily: 'Nunito_bold',
-            fontSize: MediaQuery.of(context).size.width * 0.0525,
+            fontSize: screenSize.width * 0.0525,
           ),
         ),
         centerTitle: true,
@@ -35,13 +36,13 @@ class HelpFive extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.05),
+            horizontal: screenSize.width * 0.05).w,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.0175,
+                height: screenSize.height * 0.0175.h,
               ),
               Row(
                 children: [
@@ -49,8 +50,9 @@ class HelpFive extends StatelessWidget {
                       child: Text(
                     "Apa itu fitur detail timer dan kalender?",
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.0425,
-                        fontWeight: FontWeight.bold),
+                        fontSize: screenSize.width * 0.0425,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Nunito',),
                   )),
                 ],
               ),

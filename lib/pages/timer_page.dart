@@ -184,8 +184,8 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
             title: selectedItems.isNotEmpty
                 ? Text(
                     "${selectedItems.length}",
-                    style: const TextStyle(
-                        fontSize: 25,
+                    style: TextStyle(
+                        fontSize: 25.sp,
                         color: cetaceanBlue,
                         fontFamily: 'Nunito'),
                     textAlign: TextAlign.left,
@@ -199,7 +199,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                 ? Row(
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.04,
+                        width: screenSize.width * 0.04.w,
                       ),
                       Expanded(
                         child: IconButton(
@@ -211,9 +211,9 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                               updateSelectedItems(selectedItems);
                             });
                           },
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.close_rounded,
-                            size: 30,
+                            size: 30.w,
                           ),
                         ),
                       ),
@@ -236,8 +236,8 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                           padding: const EdgeInsets.only(left: 20).w,
                           icon: SvgPicture.asset(
                             "assets/images/button_back.svg",
-                            width: 28,
-                            height: 28,
+                            width: 28.w,
+                            height: 28.w,
                           ),
                         ),
                       ),
@@ -246,7 +246,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
             actions: [
               selectedItems.isNotEmpty
                   ? Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
+                      padding: const EdgeInsets.only(right: 10.0).w,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -261,8 +261,8 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                                   } /* => _showModal((int? id) {}, _allData[index]['id'])*/,
                                   icon: SvgPicture.asset(
                                       "assets/images/edit_ui.svg",
-                                      width: 23,
-                                      height: 23),
+                                      width: 23.w,
+                                      height: 23.w),
                                 )
                               : Container(),
                           IconButton(
@@ -273,53 +273,42 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                                   return AlertDialog(
                                     surfaceTintColor: Colors.white,
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderRadius:
+                                          BorderRadius.circular(10.0).w,
                                     ),
                                     content: SizedBox(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.68,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.42,
+                                      width: screenSize.width * 0.68.w,
+                                      height: screenSize.height * 0.42.h,
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.2,
+                                            height: screenSize.height * 0.2.h,
                                             child: SvgPicture.asset(
                                               'assets/images/confirm_popup.svg',
                                               fit: BoxFit.contain,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.2,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.2,
+                                              width: screenSize.width * 0.2.w,
+                                              height: screenSize.width * 0.2.h,
                                             ),
                                           ),
-                                          const Text(
+                                          Text(
                                             "Timer akan dihapus,",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Nunito',
-                                              fontSize: 15,
+                                              fontSize: 15.sp,
                                             ),
                                           ),
-                                          const SizedBox(height: 20.0),
-                                          const Text(
+                                          SizedBox(height: 20.0.h),
+                                          Text(
                                             "Apakah Anda yakin?",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Nunito',
-                                              fontSize: 21,
+                                              fontSize: 21.sp,
                                             ),
                                           ),
-                                          const SizedBox(height: 20.0),
+                                          SizedBox(height: 20.0.h),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -328,7 +317,8 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          10.0),
+                                                              10.0)
+                                                          .w,
                                                   color: halfGrey,
                                                 ),
                                                 child: TextButton(
@@ -342,12 +332,13 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                                                   ),
                                                 ),
                                               ),
-                                              const SizedBox(width: 30),
+                                              SizedBox(width: 30.w),
                                               Container(
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          10.0),
+                                                              10.0)
+                                                          .w,
                                                   color: ripeMango,
                                                 ),
                                                 /*  --------------------------------HANDLER DELETE------------------------------------------- */
@@ -390,8 +381,8 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                             },
                             icon: SvgPicture.asset(
                                 "assets/images/delete_ui.svg",
-                                width: 23,
-                                height: 23),
+                                width: 23.w,
+                                height: 23.h),
                           ),
                         ],
                       ),
@@ -400,7 +391,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
             ],
             backgroundColor: pureWhite,
             bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(60.0),
+              preferredSize: Size.fromHeight(60.0.h),
               child: TabBar(
                 controller: tabController,
                 physics: const NeverScrollableScrollPhysics(),
@@ -412,19 +403,19 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                 },
                 tabs: [
                   Tab(
-                    height: 60,
+                    height: 60.h,
                     child: Padding(
                       padding: const EdgeInsets.only(
                         left: 15,
-                      ),
+                      ).w,
                       child: Container(
                         alignment: Alignment.centerRight,
                         height: 40,
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        width: screenSize.width * 0.35.w,
+                        padding: const EdgeInsets.symmetric(horizontal: 20).w,
                         decoration: BoxDecoration(
                           color: selectedIndex == 0 ? ripeMango : halfGrey,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(10).w,
                         ),
                         child: Align(
                           alignment: Alignment.center,
@@ -440,19 +431,19 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                     ),
                   ),
                   Tab(
-                    height: 60,
+                    height: 60.h,
                     child: Padding(
                       padding: const EdgeInsets.only(
                         right: 15,
-                      ),
+                      ).w,
                       child: Container(
                         alignment: Alignment.topCenter,
                         height: 40,
-                        width: MediaQuery.of(context).size.width * 0.35,
-                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        width: screenSize.width * 0.35.w,
+                        padding: const EdgeInsets.symmetric(horizontal: 20).w,
                         decoration: BoxDecoration(
                           color: selectedIndex == 0 ? halfGrey : ripeMango,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(10).w,
                         ),
                         child: Align(
                           alignment: Alignment.center,
@@ -469,9 +460,9 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                   ),
                 ],
                 indicatorSize: TabBarIndicatorSize.tab,
-                indicator: const UnderlineTabIndicator(
+                indicator: UnderlineTabIndicator(
                   borderSide: BorderSide(
-                    width: 2,
+                    width: 2.w,
                     color: Colors.transparent,
                   ),
                 ),
@@ -485,7 +476,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
             controller: tabController,
             children: [
               ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 20).w,
                 itemCount: 2,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -502,7 +493,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                 },
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 20).w,
                 child: _allData.isEmpty
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -510,15 +501,14 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                         children: [
                           SvgPicture.asset(
                             "assets/images/cat_setting.svg",
-                            width: screenSize.width * 0.3,
+                            width: screenSize.width * 0.3.w,
                           ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.width * 0.02),
-                          const Text(
+                          SizedBox(height: screenSize.width * 0.02.h),
+                          Text(
                             "Ayo tambahkan timer sesuai keinginanmu!",
                             style: TextStyle(
                               fontFamily: 'Nunito',
-                              fontSize: 14,
+                              fontSize: 14.sp,
                               color: darkGrey,
                             ),
                           ),

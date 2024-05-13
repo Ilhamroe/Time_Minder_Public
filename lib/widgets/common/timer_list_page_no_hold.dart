@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:time_minder/database/db_helper.dart';
 import 'package:time_minder/pages/timer_player.dart';
@@ -117,6 +118,7 @@ class _ListTimerPageNoHoldState extends State<ListTimerPageNoHold> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -134,73 +136,73 @@ class _ListTimerPageNoHoldState extends State<ListTimerPageNoHold> {
             );
           },
           child: Container(
-            margin: const EdgeInsets.only(top: 14.0),
+            margin: const EdgeInsets.only(top: 14.0).h,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(16.0).w,
               color: offOrange,
             ),
             child: ListTile(
               contentPadding:
-                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 19.0),
+                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 19.0).w,
               leading: ClipRRect(
                 borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.width * 0.04,
+                  screenSize.width * 0.04.w,
                 ),
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10).w,
                   color: heliotrope,
                   child: SvgPicture.asset(
                     'assets/images/cat1.svg',
-                    height: 30,
+                    height: 30.h,
                   ),
                 ),
               ),
               title: Text(
                 _allData[index]['title'],
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Nunito-Bold',
                   fontWeight: FontWeight.w900,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                 ),
               ),
               subtitle: Text(
                 _allData[index]['description'],
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Nunito',
                   fontWeight: FontWeight.w600,
-                  fontSize: 12,
+                  fontSize: 12.sp,
                 ),
               ),
               trailing: Column(
                 children: [
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: 12.h,
                   ),
                   Text(
                     _formatTime(_allData[index]['timer']),
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'DMSans',
                       fontWeight: FontWeight.w600,
-                      fontSize: 9,
+                      fontSize: 9.sp,
                       color: darkGrey,
                     ),
                   ),
-                  const SizedBox(
-                    height: 8.0,
+                  SizedBox(
+                    height: 5.0.h,
                   ),
                   Container(
                     padding:
-                        const EdgeInsets.symmetric(vertical: 1, horizontal: 7),
+                        EdgeInsets.symmetric(vertical: 1, horizontal: 7).w,
                     decoration: BoxDecoration(
                       color: ripeMango,
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(5).w,
                     ),
-                    child: const Text(
+                    child: Text(
                       "Mulai",
                       style: TextStyle(
                         fontFamily: 'Nunito',
-                        fontSize: 8,
+                        fontSize: 9.sp,
                         color: pureWhite,
                       ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:time_minder/utils/colors.dart';
 
 class SettingTimeWidget extends StatefulWidget {
@@ -79,17 +80,18 @@ class SettingTimeWidgetState extends State<SettingTimeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Row(
       children: [
         Expanded(
           child: Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
+            padding: EdgeInsets.all(screenSize.width * 0.01),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10).w,
               color: offYellow,
               border: Border.all(
                 color: ripeMango,
-                width: 1,
+                width: 1.w,
               ),
             ),
             child: Row(
@@ -98,18 +100,18 @@ class SettingTimeWidgetState extends State<SettingTimeWidget> {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       border: Border(
                         right: BorderSide(
                           color: offYellow,
-                          width: 1,
+                          width: 1.w,
                         ),
                       ),
                     ),
                     child: IconButton(
                       onPressed: _decrement,
                       icon: const Icon(Icons.remove),
-                      iconSize: MediaQuery.of(context).size.width * 0.03,
+                      iconSize: screenSize.width * 0.05.h,
                       color: ripeMango,
                     ),
                   ),
@@ -121,7 +123,7 @@ class SettingTimeWidgetState extends State<SettingTimeWidget> {
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.035,
+                      fontSize: 16.sp,
                       color: darkGrey,
                     ),
                     decoration: const InputDecoration(
@@ -136,18 +138,18 @@ class SettingTimeWidgetState extends State<SettingTimeWidget> {
                 Flexible(
                   flex: 1,
                   child: Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       border: Border(
                         left: BorderSide(
                           color: offYellow,
-                          width: 1,
+                          width: 1.w,
                         ),
                       ),
                     ),
                     child: IconButton(
                       onPressed: _increment,
                       icon: const Icon(Icons.add),
-                      iconSize: MediaQuery.of(context).size.width * 0.03,
+                      iconSize: screenSize.width * 0.05.h,
                       color: ripeMango,
                     ),
                   ),

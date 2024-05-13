@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_minder/database/db_helper.dart';
 import 'package:time_minder/services/onboarding_routes.dart';
@@ -175,9 +176,10 @@ class _ModalAddState extends State<ModalAdd> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Dialog(
       backgroundColor: Colors.transparent,
-      insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 20).w,
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -185,10 +187,10 @@ class _ModalAddState extends State<ModalAdd> {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(20.0).w,
           ),
           width: double.infinity,
-          padding: const EdgeInsets.fromLTRB(26, 15, 26, 21),
+          padding: const EdgeInsets.fromLTRB(26, 15, 26, 21).w,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -196,10 +198,10 @@ class _ModalAddState extends State<ModalAdd> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: CustomTextField(
                         labelText: 'Tambah waktumu sendiri',
-                        fontSize: 15.5,
+                        fontSize: 15.5.sp,
                         fontFamily: 'Nunito-Bold',
                       ),
                     ),
@@ -211,7 +213,7 @@ class _ModalAddState extends State<ModalAdd> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 6.4),
+                SizedBox(height: 6.4.h),
                 const CustomTextField(labelText: "Nama Timer : "),
                 TextField(
                   maxLength: 20,
@@ -221,7 +223,7 @@ class _ModalAddState extends State<ModalAdd> {
                     counterText: '',
                   ),
                 ),
-                const SizedBox(height: 6.4),
+                SizedBox(height: 6.4.h),
                 const CustomTextField(labelText: "Deskripsi : "),
                 TextField(
                   maxLength: 30,
@@ -231,19 +233,19 @@ class _ModalAddState extends State<ModalAdd> {
                     counterText: '',
                   ),
                 ),
-                const SizedBox(height: 6.4),
+                SizedBox(height: 6.4.h),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const CustomTextField(
                         labelText: "Waktu Fokus (dalam menit)"),
-                    const SizedBox(height: 15),
+                    SizedBox(height: 15.h),
                     SettingTimeWidget(
                       key: _settingTimeWidgetKey,
                       initialCounter: _counter,
                       onChanged: _handleTimerChange,
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -255,13 +257,13 @@ class _ModalAddState extends State<ModalAdd> {
                           icon: isOptionOpen
                               ? SvgPicture.asset(
                                   "assets/images/option_up.svg",
-                                  width: 28,
-                                  height: 28,
+                                  width: 28.w,
+                                  height: 28.h,
                                 )
                               : SvgPicture.asset(
                                   "assets/images/option.svg",
-                                  width: 28,
-                                  height: 28,
+                                  width: 28.w,
+                                  height: 28.h,
                                   color: darkGrey,
                                 ),
                         ),
@@ -276,7 +278,7 @@ class _ModalAddState extends State<ModalAdd> {
                             color: Colors.grey,
                             thickness: 1,
                           ),
-                          const SizedBox(height: 9.1),
+                          SizedBox(height: 9.1.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -292,7 +294,7 @@ class _ModalAddState extends State<ModalAdd> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 9.1),
+                          SizedBox(height: 9.1.h),
                           const Divider(
                             color: Colors.grey,
                             thickness: 1,
@@ -300,20 +302,20 @@ class _ModalAddState extends State<ModalAdd> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Row(
+                              Row(
                                 children: [
-                                  Expanded(
+                                  const Expanded(
                                     child: CustomTextField(
                                         labelText: "Durasi Istirahat"),
                                   ),
-                                  SizedBox(width: 15),
-                                  Expanded(
+                                  SizedBox(width: 15.h),
+                                  const Expanded(
                                     child: CustomTextField(
                                         labelText: "Jumlah Istirahat"),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 14.6),
+                              SizedBox(height: 14.6.h),
                               SettingBreakWidget(
                                 key: _settingBreakWidgetKey,
                                 statusSwitch: statusSwitch,
@@ -327,7 +329,7 @@ class _ModalAddState extends State<ModalAdd> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10.4),
+                    SizedBox(height: 10.4.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -340,7 +342,7 @@ class _ModalAddState extends State<ModalAdd> {
                             onPressed: _resetSetting,
                           ),
                         ),
-                        const SizedBox(width: 14.6),
+                        SizedBox(width: 14.6.w),
                         Expanded(
                           child: CustomButton(
                             text: 'Terapkan',

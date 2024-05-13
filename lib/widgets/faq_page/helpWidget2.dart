@@ -36,6 +36,7 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: pureWhite,
       appBar: AppBar(
@@ -43,7 +44,7 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
             onPressed: () {
               Navigator.pop(context);
             },
-            padding: const EdgeInsets.only(left: 19).w,
+            padding: const EdgeInsets.only(left: 20).w,
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
               width: 28,
@@ -53,7 +54,7 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
           "Menghapus dan Mengedit Timer",
           style: TextStyle(
             fontFamily: 'Nunito_bold',
-            fontSize: MediaQuery.of(context).size.width * 0.0525,
+            fontSize: screenSize.width * 0.0525.w,
           ),
         ),
         centerTitle: true,
@@ -76,8 +77,10 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
                       child: Text(
                     "Bagaimana jika saya ingin mengedit atau menghapus timer yang telah saya tambahkan?",
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.0425,
-                        fontWeight: FontWeight.bold),
+                      fontSize: screenSize.width * 0.0425,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Nunito',
+                    ),
                   )),
                 ],
               ),
@@ -85,10 +88,7 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
               const HelpContent(
                   desc:
                       "Jika kamu ingin mengedit atau menghapus timer yang telah kamu tambahkan sebelumnya, pergi ke menu “Timer” pada navigation bar yang terletak di bagian bawah aplikasi."),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Image.asset("assets/images/help/help2-1.png"),
-              ),
+              Image.asset("assets/images/help/help2-1.png"),
               const BigSpace(),
               const HelpContent(
                   desc:
@@ -96,11 +96,7 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SlideImage(
-                      image: "assets/images/help/help2-2.png",
-                      offsetAnimation: offsetAnimation2,
-                      width: 350,
-                      height: 350),
+                  Image.asset("assets/images/help/help2-2.png", height: 350),
                 ],
               ),
               const BigSpace(),
@@ -112,7 +108,6 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
                               "Untuk mengedit, tap lama atau hold salah satu timer yang ingin kamu edit")),
                   Image.asset(
                     "assets/images/help/help2-3.png",
-                    height: 200,
                     width: 200,
                   )
                 ],

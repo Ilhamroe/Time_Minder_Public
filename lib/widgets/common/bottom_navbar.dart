@@ -95,6 +95,7 @@ class _NavbarBottomState extends State<NavbarBottom> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return DoubleBackToCloseApp(
       snackBarMessage: 'Tekan sekali lagi untuk keluar',
       child: Scaffold(
@@ -134,7 +135,7 @@ class _NavbarBottomState extends State<NavbarBottom> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: Container(
-          height: MediaQuery.of(context).size.width * 0.14.h,
+          height: screenSize.width * 0.16.h,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(

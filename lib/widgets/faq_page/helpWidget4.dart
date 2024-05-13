@@ -48,6 +48,7 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: pureWhite,
       appBar: AppBar(
@@ -55,7 +56,7 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
             onPressed: () {
               Navigator.pop(context);
             },
-            padding: const EdgeInsets.only(left: 19).w,
+            padding: const EdgeInsets.only(left: 20).w,
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
               width: 28,
@@ -65,7 +66,7 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
           "Fitur Timer Selesai",
           style: TextStyle(
             fontFamily: 'Nunito_bold',
-            fontSize: MediaQuery.of(context).size.width * 0.0525,
+            fontSize: screenSize.width * 0.0525,
           ),
         ),
         centerTitle: true,
@@ -74,13 +75,13 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.05),
+            horizontal: screenSize.width * 0.05),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.0175,
+                height: screenSize.height * 0.0175,
               ),
               Row(
                 children: [
@@ -88,8 +89,9 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
                       child: Text(
                     "Bagaimana cara saya menghentikan timer yang berjalan?",
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.0425,
-                        fontWeight: FontWeight.bold),
+                        fontSize: screenSize.width * 0.0425,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Nunito',),
                   )),
                 ],
               ),
@@ -104,7 +106,7 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
                   SlideImage(
                       image: "assets/images/help/help4-1.png",
                       offsetAnimation: offsetAnimation,
-                      width: 350,
+                      // width: 350,
                       height: 350),
                 ],
               ),
@@ -119,7 +121,7 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
                   SlideImage(
                       image: "assets/images/help/help4-2.png",
                       offsetAnimation: offsetAnimation2,
-                      width: 350,
+                      // width: 350,
                       height: 350),
                 ],
               ),
