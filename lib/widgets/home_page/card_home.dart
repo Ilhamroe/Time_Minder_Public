@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:time_minder/database/db_calendar.dart';
 import 'package:time_minder/utils/colors.dart';
 
@@ -64,7 +65,6 @@ class _CardHomeState extends State<CardHome> {
     return Container(
       height: screenSize.height * .18,
       width: screenSize.width,
-      margin: const EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(22),
         color: cetaceanBlue,
@@ -79,7 +79,7 @@ class _CardHomeState extends State<CardHome> {
           ),
           Positioned.fill(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22),
+              padding: const EdgeInsets.symmetric(horizontal: 22).w,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -92,9 +92,9 @@ class _CardHomeState extends State<CardHome> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Nunito',
-                                  fontSize: screenSize.width * 0.05,
+                                  fontSize: screenSize.width * 0.05.sp,
                                   fontWeight: FontWeight.w500,
-                                  height: 1.5,
+                                  height: 1.5.h,
                                   color: pureWhite),
                             ),
                             Text(
@@ -102,7 +102,7 @@ class _CardHomeState extends State<CardHome> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Nunito-Bold',
-                                  fontSize: screenSize.width * 0.067,
+                                  fontSize: screenSize.width * 0.067.sp,
                                   color: pureWhite),
                             )
                           ],
@@ -114,9 +114,9 @@ class _CardHomeState extends State<CardHome> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Nunito',
-                                  fontSize: screenSize.width * 0.05,
+                                  fontSize: screenSize.width * 0.05.sp,
                                   fontWeight: FontWeight.w500,
-                                  height: 1.5,
+                                  height: 1.5.h,
                                   color: pureWhite),
                             ),
                             Text(
@@ -124,7 +124,7 @@ class _CardHomeState extends State<CardHome> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Nunito-Bold',
-                                  fontSize: screenSize.width * 0.067,
+                                  fontSize: screenSize.width * 0.067.sp,
                                   color: pureWhite),
                             ),
                           ],

@@ -3,6 +3,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_minder/database/db_calendar.dart';
 import 'package:time_minder/models/list_timer.dart';
@@ -93,6 +94,7 @@ class _TimerState extends State<TimerView> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () => _onBackButtonPressed(context),
       child: Scaffold(
@@ -104,14 +106,14 @@ class _TimerState extends State<TimerView> {
             },
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
-              width: 30,
-              height: 30,
+              width: 30.w,
+              height: 30.h,
               color: cetaceanBlue,
             ),
           ),
           title: Column(
             children: [
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               Text(
                 _judul,
                 style: const TextStyle(
@@ -121,12 +123,12 @@ class _TimerState extends State<TimerView> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Text(
                 _deskripsi,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Nunito',
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   color: Colors.black,
                 ),
               ),
@@ -134,40 +136,40 @@ class _TimerState extends State<TimerView> {
           ),
           centerTitle: true,
           backgroundColor: pureWhite,
-          toolbarHeight: 80,
+          toolbarHeight: 80.h,
         ),
         body: SafeArea(
           child: Container(
             decoration: const BoxDecoration(
               color: pureWhite,
             ),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            width: screenSize.width,
+            height: screenSize.height,
             padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.1,
-              vertical: MediaQuery.of(context).size.height * 0.1,
-            ),
+              horizontal: screenSize.width * 0.1.w,
+              vertical: screenSize.height * 0.1,
+            ).r,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10).w,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10).r,
                       color: offYellow,
                       border: Border.all(
                         color: ripeMango,
-                        width: 1,
+                        width: 1.w,
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       "FOKUS",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Nunito-Bold',
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         color: cetaceanBlue,
                       ),
                     ),
@@ -175,8 +177,8 @@ class _TimerState extends State<TimerView> {
                   CircularCountDownTimer(
                     duration: timeInSec,
                     initialDuration: 0,
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    height: MediaQuery.of(context).size.height * 0.4,
+                    width: screenSize.width * 0.5.w,
+                    height: screenSize.height * 0.4.h,
                     controller: _controller,
                     ringColor: ring,
                     fillColor: _controller.isPaused ? red : ripeMango,
@@ -194,7 +196,7 @@ class _TimerState extends State<TimerView> {
                     strokeCap: StrokeCap.round,
                     autoStart: true,
                     textStyle: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.1,
+                      fontSize: screenSize.width * 0.1.sp,
                       color: _controller.isPaused ? red : cetaceanBlue,
                       fontWeight: FontWeight.bold,
                     ),
@@ -203,7 +205,7 @@ class _TimerState extends State<TimerView> {
                       startTimer();
                     },
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  SizedBox(height: screenSize.height * 0.02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -213,12 +215,11 @@ class _TimerState extends State<TimerView> {
                             alignment: Alignment.center,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                height:
-                                    MediaQuery.of(context).size.width * 0.15,
+                                width: screenSize.width * 0.15.w,
+                                height:screenSize.width * 0.15.h,
                                 decoration: BoxDecoration(
                                   color: offBlue,
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(20).r,
                                 ),
                               ),
                               GestureDetector(
@@ -228,22 +229,22 @@ class _TimerState extends State<TimerView> {
                                       ? "assets/images/play.svg"
                                       : "assets/images/pause.svg",
                                   width:
-                                      MediaQuery.of(context).size.width * 0.07,
+                                      screenSize.width * 0.07.w,
                                   height:
-                                      MediaQuery.of(context).size.width * 0.07,
+                                      screenSize.width * 0.07.h,
                                   color: blueJeans,
                                 ),
                               ),
                             ],
                           ),
                           isStarted
-                              ? const Column(
+                              ? Column(
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.symmetric(vertical: 8.0),
+                                          const EdgeInsets.symmetric(vertical: 8.0).r,
                                     ),
-                                    Text(
+                                    const Text(
                                       "Resume",
                                       style: TextStyle(
                                           fontFamily: 'Nunito',
@@ -251,13 +252,13 @@ class _TimerState extends State<TimerView> {
                                     ),
                                   ],
                                 )
-                              : const Column(
+                              : Column(
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.symmetric(vertical: 8.0),
+                                          const EdgeInsets.symmetric(vertical: 8.0).r,
                                     ),
-                                    Text(
+                                    const Text(
                                       "Pause",
                                       style: TextStyle(
                                           fontFamily: 'Nunito',
@@ -267,19 +268,18 @@ class _TimerState extends State<TimerView> {
                                 )
                         ],
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width * 0.2),
+                      SizedBox(width: screenSize.width * 0.2.w),
                       Column(
                         children: [
                           Stack(
                             alignment: Alignment.center,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                height:
-                                    MediaQuery.of(context).size.width * 0.15,
+                                width: screenSize.width * 0.15.w,
+                                height:screenSize.width * 0.15.h,
                                 decoration: BoxDecoration(
                                   color: offBlue,
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(20).r,
                                 ),
                               ),
                               IconButton(
@@ -288,17 +288,15 @@ class _TimerState extends State<TimerView> {
                                 },
                                 icon: SvgPicture.asset(
                                   "assets/images/check.svg",
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.07,
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.07,
+                                  width: screenSize.width * 0.07.w,
+                                  height: screenSize.width * 0.07.h,
                                   color: blueJeans,
                                 ),
                               ),
                             ],
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0).r,
                           ),
                           const Text(
                             "Finish",
@@ -340,6 +338,7 @@ class _TimerState extends State<TimerView> {
   }
 
   void _showPopup() {
+    final screenSize = MediaQuery.of(context).size;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -348,44 +347,44 @@ class _TimerState extends State<TimerView> {
             borderRadius: BorderRadius.circular(10.0),
           ),
           content: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.68,
-            height: MediaQuery.of(context).size.height * 0.42,
+            width: screenSize.width * 0.68.w,
+            height: screenSize.height * 0.42.h,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
+                  height: screenSize.height * 0.2.h,
                   child: SvgPicture.asset(
                     'assets/images/confirm_popup.svg',
                     fit: BoxFit.contain,
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    height: MediaQuery.of(context).size.width * 0.2,
+                    width: screenSize.width * 0.2.w,
+                    height: screenSize.width * 0.2.h,
                   ),
                 ),
-                const Text(
+                Text(
                   "Kembali ke Beranda,",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Nunito',
-                    fontSize: 15,
+                    fontSize: 15.sp,
                   ),
                 ),
-                const SizedBox(height: 20.0),
-                const Text(
+                SizedBox(height: 20.0.h),
+                Text(
                   "Apakah Anda yakin?",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Nunito',
-                    fontSize: 21,
+                    fontSize: 21.sp,
                   ),
                 ),
-                const SizedBox(height: 20.0),
+                SizedBox(height: 20.0.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10.0).r,
                         color: halfGrey,
                       ),
                       child: TextButton(
@@ -398,10 +397,10 @@ class _TimerState extends State<TimerView> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 30),
+                    SizedBox(width: 30.w),
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10.0).r,
                         color: ripeMango,
                       ),
                       child: TextButton(

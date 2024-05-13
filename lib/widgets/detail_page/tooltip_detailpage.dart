@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:time_minder/widgets/home_page/tooltip_homepage.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
@@ -11,7 +12,7 @@ List<TargetFocus> detailPageTargets({
 
   targets.add(TargetFocus(
     keyTarget: calendarKey,
-    radius: 10,
+    radius: 10.r,
     shape: ShapeLightFocus.RRect,
     contents: [
       TargetContent(
@@ -37,7 +38,7 @@ List<TargetFocus> detailPageTargets({
 
   targets.add(TargetFocus(
     keyTarget: detailTimerKey,
-    radius: 10,
+    radius: 10.r,
     shape: ShapeLightFocus.RRect,
     contents: [
       TargetContent(
