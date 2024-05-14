@@ -83,7 +83,7 @@ class _FaqPageState extends State<FaqPage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(
-                  width: screenSize.width * 0.60.w,
+                  width: screenSize.width * 0.56.w,
                   child: Text(
                     "Halo! Mindy siap memberikan informasi yang kamu perlukan.",
                     style: TextStyle(fontSize: 18.sp, fontFamily: 'Nunito-Bold'),
