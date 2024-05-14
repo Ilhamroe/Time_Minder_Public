@@ -51,7 +51,7 @@ class _FaqPageState extends State<FaqPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const NavbarBottom(),
+                  builder: (context) => const NavbarBottom()
                 ),
               );
             },
