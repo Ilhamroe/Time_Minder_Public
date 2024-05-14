@@ -105,8 +105,8 @@ class _DetailPageState extends State<DetailPage> {
           padding: const EdgeInsets.only(left: 20).w,
           icon: SvgPicture.asset(
             "assets/images/button_back.svg",
-            width: 28,
-            height: 28,
+            width: 28.w,
+            height: 28.h,
           ),
         ),
       ),
@@ -115,9 +115,9 @@ class _DetailPageState extends State<DetailPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              key: calendarKey,
               padding: const EdgeInsets.symmetric(horizontal: 15.0).r,
               child: Container(
+                key: calendarKey,
                 margin: const EdgeInsets.symmetric(vertical: 1.0).r,
                 padding: const EdgeInsets.symmetric(vertical: 7.0).r,
                 decoration: BoxDecoration(
@@ -290,8 +290,9 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   Widget _buildListView() {
+    final screenSize = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+      padding: const EdgeInsets.symmetric(horizontal: 5.0).r,
       child: FutureBuilder<List<Map<String, dynamic>>>(
         future: DBCalendar.getSingleDate(_focusedDay),
         builder: (context, snapshot) {
@@ -310,11 +311,14 @@ class _DetailPageState extends State<DetailPage> {
                     SvgPicture.asset(
                       "assets/images/cat_setting.svg",
                     ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 8.0),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0).r,
                       child: Text(
                         'Ayo tambahkan timer sesuai keinginanmu!',
-                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                        style: TextStyle(
+                          fontSize: 16.sp, 
+                          color: Colors.grey
+                        ),
                       ),
                     ),
                   ],
@@ -323,47 +327,47 @@ class _DetailPageState extends State<DetailPage> {
             } else {
               return ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.0).r,
                 shrinkWrap: true,
                 itemCount: dataList.length,
                 itemBuilder: (context, int index) {
                   return Container(
-                    margin: const EdgeInsets.only(bottom: 13.0),
+                    margin: const EdgeInsets.only(bottom: 13.0).r,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16.0),
+                      borderRadius: BorderRadius.circular(16.0).r,
                       color: offOrange,
                     ),
                     child: ListTile(
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 3.0, horizontal: 19.0),
+                          vertical: 3.0, horizontal: 19.0).r,
                       leading: ClipRRect(
                         borderRadius: BorderRadius.circular(
-                          MediaQuery.of(context).size.width * 0.04,
-                        ),
+                          screenSize.width * 0.04,
+                        ).r,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 10),
+                              vertical: 8, horizontal: 10).r,
                           color: heliotrope,
                           child: SvgPicture.asset(
                             'assets/images/cat1.svg',
-                            height: 30,
+                            height: 30.h,
                           ),
                         ),
                       ),
                       title: Text(
                         dataList[index]['title'],
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Nunito-Bold',
                           fontWeight: FontWeight.w900,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                         ),
                       ),
                       subtitle: Text(
                         dataList[index]['description'],
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Nunito',
                           fontWeight: FontWeight.w600,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                         ),
                       ),
                       trailing: (dataList[index]['elapsed'] >=  dataList[index]['timer'])
@@ -376,19 +380,19 @@ class _DetailPageState extends State<DetailPage> {
                               children: [
                                 Text(
                                   "${_formatTime(dataList[index]['elapsed'])}",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Nunito-Bold',
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 14,
+                                    fontSize: 14.sp,
                                     color: cetaceanBlue,
                                   ),
                                 ),
                                 Text(
                                   " / ${_formatTime(dataList[index]['timer'])}",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Nunito-Bold',
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 10,
+                                    fontSize: 10.sp,
                                     color: cetaceanBlue,
                                   ),
                                 ),
