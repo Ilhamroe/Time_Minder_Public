@@ -91,7 +91,8 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
                     style: TextStyle(
                         fontSize: screenSize.width * 0.0425,
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'Nunito',),
+                        fontFamily: 'Nunito',
+                      ),
                   )),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HelpOne extends StatefulWidget {
@@ -54,6 +55,7 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -68,8 +70,8 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin{
         title: Text(
           "Menggunakan Fitur Custom Timer",
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.width * 0.0525,
+            fontFamily: 'Nunito_bold',
+            fontSize: screenSize.width * 0.05.w,
           ),
         ),
         centerTitle: true,
@@ -97,7 +99,12 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin{
               const HelpContent(
                 desc: "Untuk menambahkan timer, kamu hanya perlu pergi ke tombol plus pada navigation bar yang ada pada bagian bawah aplikasi."
                 ),
-              Image.asset("assets/images/help1-1.png"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset("assets/images/help1-1.png"),
+                ],
+              ),
               const CustomSpace(),
               const HelpContent(
                 desc: "Tekan tombol tersebut maka akan muncul modal dengan beberapa form yang harus kamu isi: "
@@ -194,6 +201,7 @@ class HelpContent extends StatefulWidget {
 class _HelpContentState extends State<HelpContent> {
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Column(
       children: [
         Row(
@@ -203,7 +211,7 @@ class _HelpContentState extends State<HelpContent> {
               "\u2022",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: MediaQuery.of(context).size.width * 0.0375,
+                fontSize: screenSize.width * 0.0375,
               ),
             ),
             SizedBox(
@@ -213,7 +221,8 @@ class _HelpContentState extends State<HelpContent> {
               child: Text(
                 widget.desc,
                  style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width * 0.0375,
+                  fontFamily: 'Nunito',
+                  fontSize: screenSize.width * 0.0375,
                 ),
               ),
             ),
@@ -236,6 +245,7 @@ class HelpContentRight extends StatefulWidget {
 class _HelpContentRightState extends State<HelpContentRight> {
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
         return Column(
       children: [
         Row(
@@ -249,7 +259,8 @@ class _HelpContentRightState extends State<HelpContentRight> {
               child: Text(
                 widget.desc,
                  style: TextStyle(
-                  fontSize: MediaQuery.of(context).size.width * 0.0375,
+                  fontFamily: 'Nunito',
+                  fontSize: screenSize.width * 0.0375,
                 ),
               ),
             ),
@@ -260,7 +271,7 @@ class _HelpContentRightState extends State<HelpContentRight> {
               "\u2022",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: MediaQuery.of(context).size.width * 0.0375,
+                fontSize: screenSize.width * 0.0375,
               ),
             ),
           ],
@@ -289,7 +300,7 @@ class _SlideImageState extends State<SlideImage> {
           padding: const EdgeInsets.all(0),
           child: SlideTransition(
             position: widget.offsetAnimation,
-            child: SvgPicture.asset(widget.image, width: widget.width, height: widget.height,)
+            child: Image.asset(widget.image, width: widget.width, height: widget.height,)
           ),
       );
   }

@@ -24,12 +24,11 @@ class _FaqPageState extends State<FaqPage> {
     },
     {
       "id": 1,
-      "title":
-          "Bagaimana jika ingin mengedit atau menghapus timer yang telah ditambahkan?",
+      "title": "Bagaimana jika ingin mengedit timer yang telah ditambahkan?",
     },
     {
       "id": 2,
-      "title": "Apakah bisa timer dijalankan di latar belakang?",
+      "title": "Bagaimana jika ingin menghapus timer yang telah ditambahkan?",
     },
     {
       "id": 3,
