@@ -51,7 +51,7 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
               height: 28,
             )),
         title: Text(
-          "Menghapus dan Mengedit Timer",
+          "Mengedit Timer",
           style: TextStyle(
             fontFamily: 'Nunito_bold',
             fontSize: screenSize.width * 0.0525.w,
@@ -75,7 +75,7 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
                 children: [
                   Flexible(
                       child: Text(
-                    "Bagaimana jika saya ingin mengedit atau menghapus timer yang telah saya tambahkan?",
+                    "Bagaimana jika saya ingin mengedit timer yang telah saya tambahkan?",
                     style: TextStyle(
                       fontSize: screenSize.width * 0.0425,
                       fontWeight: FontWeight.bold,
@@ -87,8 +87,14 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
               const CustomSpace(),
               const HelpContent(
                   desc:
-                      "Jika kamu ingin mengedit atau menghapus timer yang telah kamu tambahkan sebelumnya, pergi ke menu “Timer” pada navigation bar yang terletak di bagian bawah aplikasi."),
-              Image.asset("assets/images/help/help2-1.png"),
+                      "Jika kamu ingin mengedit timer yang telah kamu tambahkan sebelumnya, pergi ke menu “Timer” pada navigation bar yang terletak di bagian bawah aplikasi."
+                    ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset("assets/images/help/help2-1.png"),
+                ],
+              ),
               const BigSpace(),
               const HelpContent(
                   desc:
@@ -96,7 +102,12 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/images/help/help2-2.png", height: 350),
+                  SlideImage(
+                    image: "assets/images/help/help2-2.png", 
+                    offsetAnimation: offsetAnimation2, 
+                    width: 350, 
+                    height: 350
+                  ),
                 ],
               ),
               const BigSpace(),
@@ -128,50 +139,16 @@ class _HelpTwoState extends State<HelpTwo> with TickerProviderStateMixin {
                 ],
               ),
               const BigSpace(),
-              Row(
-                children: [
-                  const Flexible(
-                      child: HelpContent(
-                          desc:
-                              "Untuk menghapus, tap lama atau hold salah satu timer yang ingin kamu hapus")),
-                  Image.asset(
-                    "assets/images/help/help2-3.png",
-                    height: 200,
-                    width: 200,
-                  )
-                ],
-              ),
-              const BigSpace(),
-              Row(
-                children: [
-                  Image.asset(
-                    "assets/images/help/help2-4.png",
-                    height: 200,
-                    width: 200,
-                  ),
-                  const Flexible(
-                      child: HelpContentRight(
-                          desc:
-                              "Kemudian akan muncul icon tempat sampah dibagian atas aplikasi")),
-                ],
-              ),
-              const BigSpace(),
               const HelpContent(
-                  desc:
-                      "Tekan icon tempat sampah tersebut. Konfirmasi apakah kamu benar-benar akan menghapus timer tersebut"),
+                desc: "Tekan tombol tersebut untuk mengedit judul, deskripsi, waktu fokus dan waktu istirahat timer Anda."
+                  ),
+              const CustomSpace(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    "assets/images/help/help2-5.PNG",
-                    height: 250,
-                    width: 250,
-                  )
+                  Image.asset("assets/images/help/help2-6.png", width: 350, height: 350,)
                 ],
               ),
-              const CustomSpace(),
-              const HelpContent(
-                  desc: "Maka timer akan dihapus dari daftar timermu"),
               const BigSpace(),
               const BigSpace(),
             ],

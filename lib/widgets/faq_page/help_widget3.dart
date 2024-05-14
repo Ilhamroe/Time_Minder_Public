@@ -51,7 +51,7 @@ class _HelpThreeState extends State<HelpThree>
               height: 28,
             )),
         title: Text(
-          "Fitur izinkan latar belakang",
+          "Menghapus Timer",
           style: TextStyle(
             fontFamily: 'Nunito_bold',
             fontSize: screenSize.width * 0.0525,
@@ -75,32 +75,86 @@ class _HelpThreeState extends State<HelpThree>
                 children: [
                   Flexible(
                       child: Text(
-                    "Apakah bisa timer dijalankan di latar belakang?",
+                    "Bagaimana jika saya ingin menghapus timer yang telah saya tambahkan?",
                     style: TextStyle(
-                        fontSize: screenSize.width * 0.0425,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Nunito',),
+                      fontSize: screenSize.width * 0.0425,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Nunito',
+                    ),
                   )),
                 ],
               ),
               const CustomSpace(),
+               const HelpContent(
+                  desc:
+                      "Jika kamu ingin menghapus timer yang telah kamu tambahkan sebelumnya, pergi ke menu “Timer” pada navigation bar yang terletak di bagian bawah aplikasi."
+                    ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset("assets/images/help/help2-1.png"),
+                ],
+              ),
+              const BigSpace(),
               const HelpContent(
                   desc:
-                      "Timer pada TimeMinder dapat dijalankan di latar belakang, dimana memungkinkan untuk tetap menggunakan perangkat yang kamu pakai untuk melakukan kegiatan lain sambil tetap melacak waktu fokus dan istirahat."),
-              const HelpContent(
-                  desc:
-                      "Saat kamu akan keluar dari timer dengan menekan tombol kembali baik menggunakan button navigation atau gesture navigation, pastikan untuk mengaktifkan izin latar belakang saat akan keluar dari aplikasi TimeMinder agar timer dapat tetap berjalan di latar belakang sehingga memastikan fungsi ini berjalan dengan lancar."),
-              const CustomSpace(),
+                      "Pada menu ini akan terlihat beberapa timer yang telah kamu tambahkan sebelumnya."),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SlideImage(
-                      image: "assets/images/help/help3-1.png",
-                      offsetAnimation: offsetAnimation,
-                      width: 350,
-                      height: 350),
+                    image: "assets/images/help/help2-2.png", 
+                    offsetAnimation: offsetAnimation, 
+                    width: 350, 
+                    height: 350
+                  ),
                 ],
               ),
+              const BigSpace(),
+               Row(
+                children: [
+                  const Flexible(
+                      child: HelpContent(
+                          desc:
+                              "Untuk menghapus, tap lama atau hold salah satu timer yang ingin kamu hapus")),
+                  Image.asset(
+                    "assets/images/help/help2-3.png",
+                    height: 200,
+                    width: 200,
+                  )
+                ],
+              ),
+              const BigSpace(),
+              Row(
+                children: [
+                  Image.asset(
+                    "assets/images/help/help2-4.png",
+                    height: 200,
+                    width: 200,
+                  ),
+                  const Flexible(
+                      child: HelpContentRight(
+                          desc:
+                              "Kemudian akan muncul icon tempat sampah dibagian atas aplikasi")),
+                ],
+              ),
+              const BigSpace(),
+              const HelpContent(
+                  desc:
+                      "Tekan icon tempat sampah tersebut. Konfirmasi apakah kamu benar-benar akan menghapus timer tersebut"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/help/help2-5.jpg",
+                    height: 250,
+                    width: 250,
+                  )
+                ],
+              ),
+              const CustomSpace(),
+              const HelpContent(
+                  desc: "Maka timer akan dihapus dari daftar timermu"),
               const BigSpace(),
               const BigSpace(),
             ],

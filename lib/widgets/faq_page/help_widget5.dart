@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_minder/widgets/faq_page/help_widget1.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class HelpFive extends StatefulWidget {
@@ -57,6 +58,7 @@ class _HelpFiveState extends State<HelpFive> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
         leading: IconButton(
@@ -71,28 +73,33 @@ class _HelpFiveState extends State<HelpFive> with TickerProviderStateMixin {
         title: Text(
           "Fitur Detail Timer dan Kalender",
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.width * 0.0525,
+            fontFamily: 'Nunito_bold',
+            fontSize: screenSize.width * 0.0525,
           ),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.05
+          horizontal: screenSize.width * 0.05
           ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.0175,),
+              SizedBox(height: screenSize.height * 0.0175,
+                ),
               Row(
                 children: [
                   Flexible(
                     child: Text("Apa itu fitur detail timer dan kalender?", 
                   style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.0425,
-                    fontWeight: FontWeight.bold),)),
+                        fontSize: screenSize.width * 0.0425,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Nunito',
+                      ),
+                    )
+                  ),
                 ],
               ),
               const CustomSpace(),
@@ -107,15 +114,14 @@ class _HelpFiveState extends State<HelpFive> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SlideImage(
-                    image: "assets/images/help/help5-1.svg",
+                    image: "assets/images/help/help5-1.png",
                     offsetAnimation: offsetAnimation,
-                    width: 450, 
-                    height: 450
+                    width: 350, 
+                    height: 350
                   ),
                 ],
               ),
-              const CustomSpace(),
-              const CustomSpace(),
+              const BigSpace(),
               const HelpContent(
                 desc: "Sebaliknya, jika Anda melihat tanggal dimana Anda menambahkan timer pada hari tersebut, maka akan terlihat riwayat timer yang telah Anda tambahkan"
                 ),
@@ -123,10 +129,10 @@ class _HelpFiveState extends State<HelpFive> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SlideImage(
-                    image: "assets/images/help/help5-2.svg", 
+                    image: "assets/images/help/help5-2.png", 
                     offsetAnimation: offsetAnimation2, 
-                    width: 450, 
-                    height: 450
+                    width: 350, 
+                    height: 350
                   ),
                 ],
               ),
