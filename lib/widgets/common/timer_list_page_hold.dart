@@ -176,7 +176,7 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
                         ),
                       ),
                       title: Text(
-                        _allData[index]['title'],
+                        widget.allData[index]['title'],
                         style: TextStyle(
                           fontFamily: 'Nunito-Bold',
                           fontWeight: FontWeight.w900,
@@ -184,7 +184,7 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
                         ),
                       ),
                       subtitle: Text(
-                        _allData[index]['description'],
+                        widget.allData[index]['description'],
                         style: TextStyle(
                           fontFamily: 'Nunito',
                           fontWeight: FontWeight.w600,
@@ -197,7 +197,7 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
                             height: 12.h,
                           ),
                           Text(
-                            _formatTime(_allData[index]['timer']),
+                            _formatTime(widget.allData[index]['timer']),
                             style: TextStyle(
                               fontFamily: 'DMSans',
                               fontWeight: FontWeight.w600,

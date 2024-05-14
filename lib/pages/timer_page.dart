@@ -238,7 +238,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                           icon: SvgPicture.asset(
                             "assets/images/button_back.svg",
                             width: 28.w,
-                            height: 28.w,
+                            height: 28.h,
                           ),
                         ),
                       ),

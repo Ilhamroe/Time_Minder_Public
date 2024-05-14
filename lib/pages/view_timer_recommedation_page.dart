@@ -86,6 +86,11 @@ class _TimerState extends State<TimerView> {
     });
   }
 
+  Future<bool> _onBackButtonPressed(BuildContext context) async {
+    bool? exitApp = await _showPopupBack(context);
+    return exitApp ?? false;
+  }
+
   @override
   void dispose() {
     player.dispose();
@@ -106,8 +111,8 @@ class _TimerState extends State<TimerView> {
             },
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
-              width: 30.w,
-              height: 30.h,
+              width: 28.w,
+              height: 28.h,
               color: cetaceanBlue,
             ),
           ),
@@ -146,8 +151,8 @@ class _TimerState extends State<TimerView> {
             width: screenSize.width,
             height: screenSize.height,
             padding: EdgeInsets.symmetric(
-              horizontal: screenSize.width * 0.1.w,
-              vertical: screenSize.height * 0.1,
+              horizontal: screenSize.width * 0.01.w,
+              vertical: screenSize.height * 0.05.w,
             ).r,
             child: Center(
               child: Column(
@@ -157,7 +162,7 @@ class _TimerState extends State<TimerView> {
                   Container(
                     padding: const EdgeInsets.all(10).w,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10).r,
+                      borderRadius: BorderRadius.circular(10).w,
                       color: offYellow,
                       border: Border.all(
                         color: ripeMango,
@@ -205,7 +210,7 @@ class _TimerState extends State<TimerView> {
                       startTimer();
                     },
                   ),
-                  SizedBox(height: screenSize.height * 0.02),
+                  // SizedBox(height: screenSize.height * 0.02.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -216,7 +221,7 @@ class _TimerState extends State<TimerView> {
                             children: [
                               Container(
                                 width: screenSize.width * 0.15.w,
-                                height:screenSize.width * 0.15.h,
+                                height: screenSize.width * 0.15.h,
                                 decoration: BoxDecoration(
                                   color: offBlue,
                                   borderRadius: BorderRadius.circular(20).r,
@@ -228,10 +233,8 @@ class _TimerState extends State<TimerView> {
                                   isStarted
                                       ? "assets/images/play.svg"
                                       : "assets/images/pause.svg",
-                                  width:
-                                      screenSize.width * 0.07.w,
-                                  height:
-                                      screenSize.width * 0.07.h,
+                                  width: screenSize.width * 0.07.w,
+                                  height: screenSize.width * 0.07.h,
                                   color: blueJeans,
                                 ),
                               ),
@@ -241,8 +244,9 @@ class _TimerState extends State<TimerView> {
                               ? Column(
                                   children: [
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 8.0).r,
+                                      padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0)
+                                          .r,
                                     ),
                                     const Text(
                                       "Resume",
@@ -255,8 +259,9 @@ class _TimerState extends State<TimerView> {
                               : Column(
                                   children: [
                                     Padding(
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 8.0).r,
+                                      padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0)
+                                          .r,
                                     ),
                                     const Text(
                                       "Pause",
@@ -276,7 +281,7 @@ class _TimerState extends State<TimerView> {
                             children: [
                               Container(
                                 width: screenSize.width * 0.15.w,
-                                height:screenSize.width * 0.15.h,
+                                height: screenSize.width * 0.15.h,
                                 decoration: BoxDecoration(
                                   color: offBlue,
                                   borderRadius: BorderRadius.circular(20).r,
@@ -423,6 +428,93 @@ class _TimerState extends State<TimerView> {
     );
   }
 
+  Future<bool?> _showPopupBack(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          surfaceTintColor: pureWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0).w,
+          ),
+          content: SizedBox(
+            width: screenSize.width * 0.68.w,
+            height: screenSize.height * 0.42.h,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: screenSize.height * 0.2.h,
+                  child: SvgPicture.asset(
+                    'assets/images/confirm_popup.svg',
+                    fit: BoxFit.contain,
+                    width: screenSize.width * 0.2.w,
+                    height: screenSize.width * 0.2.h,
+                  ),
+                ),
+                Text(
+                  "Kembali ke Beranda,",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 15.sp,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  "Apakah Anda yakin?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 21.sp,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0).r,
+                        color: halfGrey,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Tidak",
+                          style: TextStyle(color: offGrey),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 30.w),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0).r,
+                        color: ripeMango,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          buttonConfirm();
+                        },
+                        child: const Text(
+                          "Ya",
+                          style: TextStyle(color: offGrey),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    ).then((value) => value ?? false); // Ensuring a non-null return value
+  }
+
   void startTimer() async {
     _showNotification("Timer dimulai");
     player.play(AssetSource("sounds/start.wav"));
@@ -476,15 +568,15 @@ class _TimerState extends State<TimerView> {
     );
   }
 
-  Future<bool> _onBackButtonPressed(BuildContext context) async {
-    bool? exitApp = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const OnBackButton();
-      },
-    );
-    return exitApp ?? false;
-  }
+  // Future<bool> _onBackButtonPressed(BuildContext context) async {
+  //   bool? exitApp = await showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return const OnBackButton();
+  //     },
+  //   );
+  //   return exitApp ?? false;
+  // }
 
   Future<void> buttonConfirm() async {
     if (pauseTime != null) {

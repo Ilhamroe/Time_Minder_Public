@@ -59,10 +59,10 @@ class _FaqPageState extends State<FaqPage> {
             padding: const EdgeInsets.only(left: 20).w,
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
-              width: 28,
-              height: 28,
+              width: 28.w,
+              height: 28.h,
             )),
-        title: Text(
+        title: const Text(
           "Bantuan",
           style: TextStyle(fontFamily: 'Nunito-Bold'),
         ),
@@ -71,8 +71,7 @@ class _FaqPageState extends State<FaqPage> {
         backgroundColor: pureWhite,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: 20).w,
+        padding: const EdgeInsets.symmetric(horizontal: 20).w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -84,16 +83,16 @@ class _FaqPageState extends State<FaqPage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(
-                  width: screenSize.width * 0.62.w,
+                  width: screenSize.width * 0.60.w,
                   child: Text(
                     "Halo! Mindy siap memberikan informasi yang kamu perlukan.",
-                    style: TextStyle(fontSize: 20, fontFamily: 'Nunito-Bold'),
+                    style: TextStyle(fontSize: 18.sp, fontFamily: 'Nunito-Bold'),
                   ),
                 ),
                 SizedBox(
                   child: SvgPicture.asset(
                     "assets/images/cat_hello.svg",
-                    height: screenSize.height * 0.07.h,
+                    height: screenSize.height * 0.06.h,
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -146,8 +145,8 @@ class _FaqPageState extends State<FaqPage> {
                         }
                       },
                       child: Padding(
-                        padding: EdgeInsets.only(
-                            bottom: screenSize.height * 0.02).h,
+                        padding:
+                            EdgeInsets.only(bottom: screenSize.height * 0.02).h,
                         child: ListTile(
                           title: Text(
                             item['title'],

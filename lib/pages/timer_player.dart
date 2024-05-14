@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,7 +11,6 @@ import 'package:time_minder/utils/colors.dart';
 import 'package:time_minder/services/notif.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:time_minder/widgets/common/bottom_navbar.dart';
-import 'package:time_minder/widgets/common/on_back_button.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -82,7 +79,8 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
             .difference(DateTime.now().subtract(Duration(seconds: pauseCount)))
             .inSeconds) -
         (_rest * 60 * istirahatCount);
-    final completed = elapsed >= ((_timer * 60) + (_rest * 60 * istirahatCount)) ? 1 : 0;
+    final completed =
+        elapsed >= ((_timer * 60) + (_rest * 60 * istirahatCount)) ? 1 : 0;
 
     await DBCalendar.createData(
       _title,
@@ -192,13 +190,18 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
     );
   }
 
+  // Future<bool> _onBackButtonPressed(BuildContext context) async {
+  //   bool? exitApp = await showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return const AlertDialog();
+  //     },
+  //   );
+  //   return exitApp ?? false;
+  // }
+
   Future<bool> _onBackButtonPressed(BuildContext context) async {
-    bool? exitApp = await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const OnBackButton();
-      },
-    );
+    bool? exitApp = await _showPopupBack(context);
     return exitApp ?? false;
   }
 
@@ -216,8 +219,8 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
             },
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
-              width: 30.w,
-              height: 30.h,
+              width: 28.w,
+              height: 28.h,
             ),
           ),
           title: Column(
@@ -306,8 +309,9 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                             ),
                             strokeWidth: 20.0,
                             textStyle: TextStyle(
-                              fontSize: 40.sp,
-                              color: Colors.black,
+                              fontSize: screenSize.width * 0.1.sp,
+                              color:
+                                  _cDController.isPaused ? red : cetaceanBlue,
                               fontWeight: FontWeight.bold,
                             ),
                             isReverse: true,
@@ -320,7 +324,13 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                             onComplete: () => _queueTimerJob()),
                         SizedBox(height: screenSize.height * 0.05.h),
                         _jobsTimer[_currentJobIndex].type == 'ISTIRAHAT'
-                            ? Container()
+                            ? Container(
+                                // child: SvgPicture.asset(
+                                //   'assets/images/cat_clock.svg',
+                                //   width: screenSize.width * 0.23.w,
+                                //   height: screenSize.width * 0.23.h,
+                                // ),
+                                )
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -416,8 +426,9 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                                         ],
                                       ),
                                       Padding(
-                                        padding:
-                                            const EdgeInsets.symmetric(vertical: 8.0).w,
+                                        padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0)
+                                            .w,
                                       ),
                                       const Text(
                                         "Finish",
@@ -464,6 +475,7 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          surfaceTintColor: pureWhite,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0).w,
           ),
@@ -542,5 +554,92 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
         );
       },
     );
+  }
+
+  Future<bool?> _showPopupBack(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          surfaceTintColor: pureWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0).w,
+          ),
+          content: SizedBox(
+            width: screenSize.width * 0.68.w,
+            height: screenSize.height * 0.42.h,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: screenSize.height * 0.2.h,
+                  child: SvgPicture.asset(
+                    'assets/images/confirm_popup.svg',
+                    fit: BoxFit.contain,
+                    width: screenSize.width * 0.2.w,
+                    height: screenSize.width * 0.2.h,
+                  ),
+                ),
+                Text(
+                  "Kembali ke Beranda,",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 15.sp,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  "Apakah Anda yakin?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 21.sp,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0).r,
+                        color: halfGrey,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Tidak",
+                          style: TextStyle(color: offGrey),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 30.w),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0).r,
+                        color: ripeMango,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          buttonConfirm();
+                        },
+                        child: const Text(
+                          "Ya",
+                          style: TextStyle(color: offGrey),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    ).then((value) => value ?? false); // Ensuring a non-null return value
   }
 }
