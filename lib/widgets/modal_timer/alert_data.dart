@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AlertData extends StatefulWidget {
@@ -22,24 +23,30 @@ class _AlertDataState extends State<AlertData> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return AlertDialog(
-      title: const Text("Data tidak lengkap"),
+      title: const Text(
+        "Data tidak lengkap",
+        style: TextStyle(
+          fontFamily: 'Nunito',
+        ),
+      ),
       content: SizedBox(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: screenSize.height * 0.2.h,
               child: SvgPicture.asset(
                 'assets/images/confirm_popup.svg',
               ),
             ),
-            const Text(
+            Text(
               'Nama Timer, Deskripsi, dan Waktu harus diisi.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Nunito',
-                fontSize: 15,
+                fontSize: 15.sp,
               ),
             ),
           ],
@@ -47,7 +54,12 @@ class _AlertDataState extends State<AlertData> {
       ),
       actions: <Widget>[
         TextButton(
-          child: const Text("OK"),
+          child: const Text(
+            "OK",
+            style: TextStyle(
+              fontFamily: 'Nunito',
+            ),
+          ),
           onPressed: () {
             Navigator.of(context).pop();
           },

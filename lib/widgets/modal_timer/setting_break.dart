@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:time_minder/utils/colors.dart';
 
 class SettingBreakWidget extends StatefulWidget {
@@ -97,14 +98,14 @@ class SettingBreakWidgetState extends State<SettingBreakWidget> {
       children: [
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(2),
-            margin: const EdgeInsets.only(right: 4),
+            padding: const EdgeInsets.all(2).w,
+            margin: EdgeInsets.only(right: 4).w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(15).w,
               color: widget.statusSwitch ? offYellow : offGrey,
               border: Border.all(
                 color: widget.statusSwitch ? ripeMango : halfGrey,
-                width: 1,
+                width: 1.w,
               ),
             ),
             child: Row(
@@ -123,7 +124,7 @@ class SettingBreakWidgetState extends State<SettingBreakWidget> {
                         }
                       : null,
                   icon: const Icon(Icons.remove),
-                  iconSize: 16,
+                  iconSize: 16.h,
                   color: widget.statusSwitch ? ripeMango : darkGrey,
                 ),
                 Expanded(
@@ -136,8 +137,8 @@ class SettingBreakWidgetState extends State<SettingBreakWidget> {
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.zero,
                           ),
-                          style: const TextStyle(
-                            fontSize: 12,
+                          style: TextStyle(
+                            fontSize: 16.sp,
                             color: darkGrey,
                           ),
                           textAlign: TextAlign.center,
@@ -149,8 +150,8 @@ class SettingBreakWidgetState extends State<SettingBreakWidget> {
                             border: InputBorder.none,
                             contentPadding: EdgeInsets.zero,
                           ),
-                          style: const TextStyle(
-                            fontSize: 12,
+                          style: TextStyle(
+                            fontSize: 16.sp,
                             color: darkGrey,
                           ),
                           textAlign: TextAlign.center,
@@ -167,24 +168,24 @@ class SettingBreakWidgetState extends State<SettingBreakWidget> {
                         }
                       : null,
                   icon: const Icon(Icons.add),
-                  iconSize: 16,
+                  iconSize: 16.h,
                   color: widget.statusSwitch ? ripeMango : darkGrey,
                 ),
               ],
             ),
           ),
         ),
-        const SizedBox(width: 18),
+        SizedBox(width: 18.w),
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(2),
-            margin: const EdgeInsets.only(right: 4),
+            padding: const EdgeInsets.all(2).w,
+            margin: const EdgeInsets.only(right: 4).w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: widget.statusSwitch ? offYellow : offGrey,
               border: Border.all(
                 color: widget.statusSwitch ? ripeMango : halfGrey,
-                width: 1,
+                width: 1.w,
               ),
             ),
             child: Row(
@@ -203,7 +204,7 @@ class SettingBreakWidgetState extends State<SettingBreakWidget> {
                         }
                       : null,
                   icon: const Icon(Icons.remove),
-                  iconSize: 16,
+                  iconSize: 16.h,
                   color: widget.statusSwitch ? ripeMango : darkGrey,
                 ),
                 Expanded(
@@ -216,8 +217,8 @@ class SettingBreakWidgetState extends State<SettingBreakWidget> {
                               contentPadding: EdgeInsets.zero,
                             ),
                             onChanged: _onIntervalChanged,
-                            style: const TextStyle(
-                              fontSize: 12,
+                            style: TextStyle(
+                              fontSize: 16.sp,
                               color: darkGrey,
                             ),
                             textAlign: TextAlign.center,
@@ -230,8 +231,8 @@ class SettingBreakWidgetState extends State<SettingBreakWidget> {
                               contentPadding: EdgeInsets.zero,
                             ),
                             onChanged: _onIntervalChanged,
-                            style: const TextStyle(
-                              fontSize: 12,
+                            style: TextStyle(
+                              fontSize: 16.sp,
                               color: darkGrey,
                             ),
                             textAlign: TextAlign.center,
@@ -247,7 +248,7 @@ class SettingBreakWidgetState extends State<SettingBreakWidget> {
                         }
                       : null,
                   icon: const Icon(Icons.add),
-                  iconSize: 16,
+                  iconSize: 16.h,
                   color: widget.statusSwitch ? ripeMango : darkGrey,
                 ),
               ],

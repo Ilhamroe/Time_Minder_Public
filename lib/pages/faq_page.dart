@@ -42,10 +42,12 @@ class _FaqPageState extends State<FaqPage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: pureWhite,
       appBar: AppBar(
         leading: IconButton(
+            iconSize: Checkbox.width,
             onPressed: () {
               Navigator.push(
                 context,
@@ -70,19 +72,19 @@ class _FaqPageState extends State<FaqPage> {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.045),
+            horizontal: 20).w,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.01,
+              height: screenSize.height * 0.01.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.62,
+                  width: screenSize.width * 0.62.w,
                   child: Text(
                     "Halo! Mindy siap memberikan informasi yang kamu perlukan.",
                     style: TextStyle(fontSize: 20, fontFamily: 'Nunito-Bold'),
@@ -91,14 +93,14 @@ class _FaqPageState extends State<FaqPage> {
                 SizedBox(
                   child: SvgPicture.asset(
                     "assets/images/cat_hello.svg",
-                    height: MediaQuery.of(context).size.height * 0.07,
+                    height: screenSize.height * 0.07.h,
                     fit: BoxFit.fitHeight,
                   ),
                 ),
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.0275,
+              height: screenSize.height * 0.0275.h,
             ),
             Expanded(
               child: ListView.builder(
@@ -145,13 +147,13 @@ class _FaqPageState extends State<FaqPage> {
                       },
                       child: Padding(
                         padding: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.height * 0.02),
+                            bottom: screenSize.height * 0.02).h,
                         child: ListTile(
                           title: Text(
                             item['title'],
                           ),
                           shape: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8).w,
                               borderSide: BorderSide(color: gallery)),
                           trailing: Icon(
                             Icons.arrow_forward_ios_rounded,

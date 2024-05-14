@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:time_minder/pages/timer_player.dart';
 import 'package:time_minder/services/notif.dart';
@@ -36,42 +37,43 @@ class _OnBackButtonState extends State<OnBackButton> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return AlertDialog(
       surfaceTintColor: Colors.transparent,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(10.0).w,
       ),
       content: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.68,
-        height: MediaQuery.of(context).size.height * 0.42,
+        width: screenSize.width * 0.68.w,
+        height: screenSize.height * 0.42.h,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: screenSize.height * 0.2.h,
               child: SvgPicture.asset(
                 'assets/images/confirm_popup.svg',
                 fit: BoxFit.contain,
-                width: MediaQuery.of(context).size.width * 0.2,
-                height: MediaQuery.of(context).size.width * 0.2,
+                width: screenSize.width * 0.2.w,
+                height: screenSize.width * 0.2.h,
               ),
             ),
-            const SizedBox(height: 20.0),
-            const Text(
+            SizedBox(height: 20.0.h),
+            Text(
               "Izinkan timer berjalan di latar belakang",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Nunito',
-                fontSize: 21,
+                fontSize: 21.sp,
               ),
             ),
-            const SizedBox(height: 20.0),
+            SizedBox(height: 20.0.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(10.0).w,
                     color: halfGrey,
                   ),
                   child: TextButton(
@@ -84,10 +86,10 @@ class _OnBackButtonState extends State<OnBackButton> {
                     ),
                   ),
                 ),
-                const SizedBox(width: 30),
+                SizedBox(width: 30.w),
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(10.0).r,
                     color: ripeMango,
                   ),
                   child: TextButton(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:time_minder/database/db_helper.dart';
@@ -83,60 +84,60 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
             ));
           },
           child: Container(
-            margin: const EdgeInsets.only(top: 14.0),
+            margin: const EdgeInsets.only(top: 14.0).h,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16.0),
+              borderRadius: BorderRadius.circular(16.0).w,
               color: offOrange,
             ),
             child: ListTile(
               contentPadding:
-                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 19.0),
+                  const EdgeInsets.symmetric(vertical: 3.0, horizontal: 19.0).w,
               leading: ClipRRect(
                 borderRadius: BorderRadius.circular(
-                  MediaQuery.of(context).size.width * 0.04,
-                ),
+                  screenSize.width * 0.04,
+                ).w,
                 child: Container(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 10).w,
                   color: heliotrope,
                   child: SvgPicture.asset(
                     Timerlist[index].image,
-                    height: 30,
+                    height: 30.h,
                   ),
                 ),
               ),
               title: Text(
                 Timerlist[index].title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Nunito-Bold',
                   fontWeight: FontWeight.w900,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                 ),
               ),
               subtitle: Text(
                 Timerlist[index].description,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Nunito',
                   fontWeight: FontWeight.w600,
-                  fontSize: 12,
+                  fontSize: 12.sp,
                 ),
               ),
               trailing: Column(
                 children: [
-                  const SizedBox(
-                    height: 15,
+                  SizedBox(
+                    height: 12.h,
                   ),
                   Text(
                     Timerlist[index].time,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'DMSans',
                       fontWeight: FontWeight.w600,
-                      fontSize: 8,
+                      fontSize: 9.sp,
                       color: darkGrey,
                     ),
                   ),
-                  const SizedBox(
-                    height: 8.0,
+                  SizedBox(
+                    height: 5.0.h,
                   ),
                   GestureDetector(
                     onTap: selectedItems.isNotEmpty
@@ -154,17 +155,17 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
                       ignoring: selectedItems.isNotEmpty,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 1, horizontal: 7),
+                            vertical: 1, horizontal: 7).w,
                         decoration: BoxDecoration(
                           color: ripeMango,
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(5).w,
                         ),
                         child: selectedItems.isNotEmpty
                             ? Text(
                                 "pilih",
                                 style: TextStyle(
                                   fontFamily: 'Nunito',
-                                  fontSize: screenSize.width * 0.025,
+                                  fontSize: screenSize.width * 0.025.sp,
                                   color: pureWhite,
                                 ),
                               )
@@ -172,7 +173,7 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
                                 "Mulai",
                                 style: TextStyle(
                                   fontFamily: 'Nunito',
-                                  fontSize: screenSize.width * 0.025,
+                                  fontSize: screenSize.width * 0.025.sp,
                                   color: pureWhite,
                                 ),
                               ),
