@@ -309,7 +309,7 @@ class _ModalAddState extends State<ModalAdd> {
                                     child: CustomTextField(
                                         labelText: "Durasi Istirahat"),
                                   ),
-                                  SizedBox(width: 15.h),
+                                  SizedBox(width: 15.w),
                                   const Expanded(
                                     child: CustomTextField(
                                         labelText: "Jumlah Istirahat"),
