@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:time_minder/utils/colors.dart';
 
 class HelpOne extends StatefulWidget {
   const HelpOne({super.key});
@@ -55,7 +56,10 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: pureWhite,
       appBar: AppBar(
+        backgroundColor: pureWhite,
+        surfaceTintColor: pureWhite,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);

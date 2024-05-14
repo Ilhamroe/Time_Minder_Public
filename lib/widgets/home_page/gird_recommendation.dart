@@ -14,7 +14,7 @@ class GridRekomendasi extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: screenSize.width < 200.w ? 2 : 3,
@@ -29,9 +29,10 @@ class GridRekomendasi extends StatelessWidget {
             color: offOrange,
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(top: screenSize.width * 0.03.w),
+                // margin: EdgeInsets.only(top: screenSize.width * 0.03.w),
                 padding: EdgeInsets.symmetric(
                   vertical: screenSize.width * 0.03.w,
                   horizontal: screenSize.width * 0.04.w,
@@ -46,73 +47,84 @@ class GridRekomendasi extends StatelessWidget {
                   height: screenSize.width * 0.1.h,
                 ),
               ),
+              Container(
+                padding: EdgeInsets.only(
+                    top: screenSize.width * 0.02,
+                    bottom: screenSize.width * 0.01).w,
+                child: Text(
+                  timerList[index].title,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: screenSize.width * 0.037.sp,
+                    fontWeight: FontWeight.bold,
+                    color: cetaceanBlue,
+                  ),
+                ),
+              ),
+              // SizedBox(height: screenSize.width * 0.01.h),
+              Container(
+                padding: EdgeInsets.only(
+                  bottom: screenSize.width * 0.01,
+                  right: screenSize.width * 0.01,
+                ).w,
+                child: Text(
+                  timerList[index].description,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: screenSize.width * 0.025.sp,
+                    fontWeight: FontWeight.w800,
+                    color: cetaceanBlue,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              // SizedBox(height: screenSize.width * 0.01.h),
+              Container(
+                padding: EdgeInsets.only(
+                  bottom: screenSize.width * 0.01,
+                  right: screenSize.width * 0.01,
+                ).w,
+                child: Text(
+                  timerList[index].time,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: screenSize.width * 0.025.sp,
+                    fontWeight: FontWeight.w800,
+                    color: darkGrey,
+                  ),
+                ),
+              ),
+              // SizedBox(height: screenSize.width * 0.01.h),
               Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 0.02.w, vertical: 0.02.w),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      timerList[index].title,
-                      style: TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: screenSize.width * 0.037.sp,
-                        fontWeight: FontWeight.bold,
-                        color: cetaceanBlue,
+                padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.015).w,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TimerView(timerIndex: index),
                       ),
+                    );
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5).w,
+                    padding: EdgeInsets.symmetric(horizontal: 0.01).w,
+                    decoration: BoxDecoration(
+                      color: ripeMango,
+                      borderRadius:
+                          BorderRadius.circular(screenSize.width * 0.02.w),
                     ),
-                    SizedBox(height: screenSize.width * 0.01.h),
-                    Text(
-                      timerList[index].description,
-                      style: TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: screenSize.width * 0.025.sp,
-                        fontWeight: FontWeight.w800,
-                        color: cetaceanBlue,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(height: screenSize.width * 0.01.h),
-                    Text(
-                      timerList[index].time,
-                      style: TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: screenSize.width * 0.025.sp,
-                        fontWeight: FontWeight.w800,
-                        color: darkGrey,
-                      ),
-                    ),
-                    SizedBox(height: screenSize.width * 0.01.h),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TimerView(timerIndex: index),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 5).w,
-                        padding: const EdgeInsets.symmetric(horizontal: 0.01).w,
-                        decoration: BoxDecoration(
-                          color: ripeMango,
-                          borderRadius:
-                              BorderRadius.circular(screenSize.width * 0.02.w),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Mulai",
-                            style: TextStyle(
-                              fontFamily: 'Nunito',
-                              fontSize: screenSize.width * 0.04.sp,
-                              color: pureWhite,
-                            ),
-                          ),
+                    child: Center(
+                      child: Text(
+                        "Mulai",
+                        style: TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: screenSize.width * 0.035.sp,
+                          color: pureWhite,
                         ),
                       ),
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],

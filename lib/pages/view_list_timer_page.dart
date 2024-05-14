@@ -142,11 +142,11 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
             duration: _jobsTimer[++_currentJobIndex].duration);
         if (_jobsTimer[_currentJobIndex].type == 'ISTIRAHAT') {
           istirahatCount++;
-          _player.play(AssetSource('sounds/jobs.wav'));
+          _player.play(AssetSource('sounds/jobs_rest.wav'));
           _showNotification("Waktunya Istirahat");
         }
         if (_jobsTimer[_currentJobIndex].type == 'FOKUS') {
-          _player.play(AssetSource('sounds/jobs.wav'));
+          _player.play(AssetSource('sounds/jobs_focus.wav'));
           _showNotification("Istirahat Selesai");
         }
       } else {
@@ -326,11 +326,11 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                         SizedBox(height: screenSize.height * 0.05.h),
                         _jobsTimer[_currentJobIndex].type == 'ISTIRAHAT'
                             ? Container(
-                                // child: SvgPicture.asset(
-                                //   'assets/images/cat_clock.svg',
-                                //   width: screenSize.width * 0.23.w,
-                                //   height: screenSize.width * 0.23.h,
-                                // ),
+                                child: SvgPicture.asset(
+                                  'assets/images/cat_rest.svg',
+                                  width: screenSize.width * 0.23.w,
+                                  height: screenSize.width * 0.23.h,
+                                ),
                                 )
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
