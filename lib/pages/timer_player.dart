@@ -256,8 +256,8 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
             decoration: const BoxDecoration(
               color: pureWhite,
             ),
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            width: screenSize.width,
+            height: screenSize.height,
             padding: EdgeInsets.symmetric(
               horizontal: screenSize.width * 0.1.w,
               vertical: screenSize.height * 0.1.w,
@@ -317,6 +317,7 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                             isReverse: true,
                             isReverseAnimation: false,
                             isTimerTextShown: true,
+                            strokeCap: StrokeCap.round,
                             onStart: () {
                               _player.play(AssetSource('sounds/start.wav'));
                               _showNotification("Timer dimulai");
@@ -604,7 +605,7 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0).r,
+                        borderRadius: BorderRadius.circular(10.0).w,
                         color: halfGrey,
                       ),
                       child: TextButton(
@@ -620,7 +621,7 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                     SizedBox(width: 30.w),
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0).r,
+                        borderRadius: BorderRadius.circular(10.0).w,
                         color: ripeMango,
                       ),
                       child: TextButton(

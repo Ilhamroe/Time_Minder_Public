@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       pulseEnable: false,
       colorShadow: darkGrey,
-      paddingFocus: 30,
+      paddingFocus: 20,
       hideSkip: true,
       opacityShadow: 0.5,
       onFinish: () {
