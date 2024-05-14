@@ -12,9 +12,9 @@ import 'package:time_minder/widgets/common/providers.dart';
 typedef ModalCloseCallback = void Function(int? id);
 
 class ListTimerPageHold extends StatefulWidget {
-  final bool isSettingPressed;
+  final List<Map<String, dynamic>> allData;
 
-  const ListTimerPageHold({Key? key, required this.isSettingPressed})
+  const ListTimerPageHold({Key? key, required this.allData})
       : super(key: key);
 
   @override
@@ -32,7 +32,6 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
   final TextEditingController _namaTimerController = TextEditingController();
   final TextEditingController _deskripsiController = TextEditingController();
 
-  late List<Map<String, dynamic>> _allData = [];
   // refresh data
   Future<void> _refreshData() async {
     setState(() {
@@ -40,7 +39,6 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
     });
     final List<Map<String, dynamic>> data = await SQLHelper.getAllData();
     setState(() {
-      _allData = data;
       isLoading = false;
     });
   }
@@ -54,7 +52,7 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
   void _showModal(ModalCloseCallback onClose, [int? id]) async {
     if (id != null) {
       final existingData =
-          _allData.firstWhere((element) => element['id'] == id);
+          widget.allData.firstWhere((element) => element['id'] == id);
       _namaTimerController.text = existingData['title'];
       _deskripsiController.text = existingData['description'];
       counter = existingData['time'] ?? 0;
@@ -98,12 +96,6 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _refreshData();
-  }
-
-  @override
   void dispose() {
     _namaTimerController.dispose();
     _deskripsiController.dispose();
@@ -128,25 +120,24 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
         return ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: _allData.length,
+          itemCount: widget.allData.length,
           itemBuilder: (context, int index) {
             return GestureDetector(
               onTap: () {
                 if (selectedItems.isNotEmpty) {
                   setState(() {
                     if (selectedItems.contains(index)) {
-                      selectedItems.remove(index);
-                    } else {
-                      selectedItems.add(index);
-                    }
-                    updateSelectedItems(selectedItems);
+                    selectedItemsProvider.removeFromSelectedItems(index);
+                  } else {
+                    selectedItemsProvider.addToSelectedItems(index);
+                  }
                   });
                 } else {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => CombinedTimerPage(
-                        id: _allData[index]['id'],
+                        id: widget.allData[index]['id'],
                       ),
                     ),
                   );
@@ -155,11 +146,10 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
               onLongPress: () {
                 setState(() {
                   if (selectedItems.contains(index)) {
-                    selectedItems.remove(index);
+                    selectedItemsProvider.removeFromSelectedItems(index);
                   } else {
-                    selectedItems.add(index);
+                    selectedItemsProvider.addToSelectedItems(index);
                   }
-                  updateSelectedItems(selectedItems);
                 });
               },
               child: Stack(

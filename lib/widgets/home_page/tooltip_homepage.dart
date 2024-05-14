@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:time_minder/utils/colors.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-List<TargetFocus> homePageTargets(
-    {required GlobalKey cardHomeKey,
-    required GlobalKey gridRekomendasiKey,
-    required GlobalKey timerMuKey,
-    }) {
-      
+List<TargetFocus> homePageTargets({
+  required GlobalKey cardHomeKey,
+  required GlobalKey gridRekomendasiKey,
+  required GlobalKey timerMuKey,
+}) {
   List<TargetFocus> targets = [];
 
   targets.add(TargetFocus(
     keyTarget: cardHomeKey,
-    radius: 10,
+    radius: 10.r,
     shape: ShapeLightFocus.RRect,
     contents: [
       TargetContent(
@@ -39,7 +39,7 @@ List<TargetFocus> homePageTargets(
   targets.add(TargetFocus(
     keyTarget: gridRekomendasiKey,
     alignSkip: Alignment.topRight,
-    radius: 10,
+    radius: 10.r,
     shape: ShapeLightFocus.RRect,
     contents: [
       TargetContent(
@@ -48,7 +48,8 @@ List<TargetFocus> homePageTargets(
           return CoachMarkDesc(
             step: "2/3",
             title: "Rekomendasi",
-            desc: "Telusuri daftar timer yang sudah disiapkan, termasuk timer Pomodoro, Long Timer, dan juga Short Timer",
+            desc:
+                "Telusuri daftar timer yang sudah disiapkan, termasuk timer Pomodoro, Long Timer, dan juga Short Timer",
             skip: "Lewati",
             next: "Selanjutnya",
             onSkip: () {
@@ -66,7 +67,7 @@ List<TargetFocus> homePageTargets(
   targets.add(TargetFocus(
     keyTarget: timerMuKey,
     alignSkip: Alignment.topRight,
-    radius: 10,
+    radius: 10.r,
     shape: ShapeLightFocus.RRect,
     contents: [
       TargetContent(
@@ -122,10 +123,10 @@ class _CoachMarkDescState extends State<CoachMarkDesc> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15).w,
       decoration: BoxDecoration(
         color: cetaceanBlue,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(10).w,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,30 +134,30 @@ class _CoachMarkDescState extends State<CoachMarkDesc> {
         children: [
           Text(
             widget.step,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontSize: 15.0),
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 15.0.sp),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 1.0),
+            padding: const EdgeInsets.only(top: 1.0).r,
             child: Text(
               widget.title,
-              style: const TextStyle(
+              style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
-                  fontSize: 20.0),
+                  fontSize: 20.0.sp),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 1.0),
+            padding: const EdgeInsets.only(top: 1.0).r,
             child: Text(
               widget.desc,
               style: const TextStyle(color: Colors.white),
             ),
           ),
-          const SizedBox(
-            height: 10,
+          SizedBox(
+            height: 10.h,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -172,14 +173,14 @@ class _CoachMarkDescState extends State<CoachMarkDesc> {
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 16,
+              SizedBox(
+                width: 16.w,
               ),
               ElevatedButton(
                 onPressed: widget.onNext,
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
+                    shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5).r,
                 )),
                 child: Text(
                   widget.next,

@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_minder/database/db_helper.dart';
 import 'package:time_minder/services/onboarding_routes.dart';
@@ -11,15 +12,15 @@ import 'package:time_minder/widgets/modal_timer/custom_text.dart';
 import 'package:time_minder/widgets/modal_timer/setting_break.dart';
 import 'package:time_minder/widgets/modal_timer/setting_time.dart';
 
-class ModalAdd extends StatefulWidget {
-  const ModalAdd({super.key, this.id});
+class EditModal extends StatefulWidget {
+  const EditModal({Key? key, this.id}) : super(key: key);
   final int? id;
 
   @override
-  State<ModalAdd> createState() => _ModalAddState();
+  State<EditModal> createState() => _EditModalState();
 }
 
-class _ModalAddState extends State<ModalAdd> {
+class _EditModalState extends State<EditModal> {
   final GlobalKey<SettingTimeWidgetState> _settingTimeWidgetKey =
       GlobalKey<SettingTimeWidgetState>();
 
@@ -27,9 +28,9 @@ class _ModalAddState extends State<ModalAdd> {
       GlobalKey<SettingBreakWidgetState>();
 
   int? id;
-  int _counter = 0;
-  int _counterBreakTime = 0;
-  int _counterInterval = 0;
+  late int _counter;
+  late int _counterBreakTime;
+  late int _counterInterval;
   bool isLoading = false;
   bool statusSwitch = false;
   bool hideContainer = true;
@@ -63,6 +64,22 @@ class _ModalAddState extends State<ModalAdd> {
       _counter = timerValue;
       _counterBreakTime = data[0]['rest'] ?? 0;
       _counterInterval = data[0]['interval'] ?? 0;
+    });
+
+  }
+
+  TextEditingController breakTimeController = TextEditingController();
+  TextEditingController intervalController = TextEditingController();
+
+  void setBreakTimeCounter(int value) {
+    setState(() {
+      _counterBreakTime = value;
+    });
+  }
+
+  void setIntervalCounter(int value) {
+    setState(() {
+      _counterInterval = value;
     });
   }
 
@@ -176,10 +193,9 @@ class _ModalAddState extends State<ModalAdd> {
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
     return Dialog(
       backgroundColor: Colors.transparent,
-      insetPadding: const EdgeInsets.symmetric(horizontal: 20).w,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
@@ -187,10 +203,10 @@ class _ModalAddState extends State<ModalAdd> {
         child: Container(
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20.0).w,
+            borderRadius: BorderRadius.circular(20.0),
           ),
           width: double.infinity,
-          padding: const EdgeInsets.fromLTRB(26, 15, 26, 21).w,
+          padding: const EdgeInsets.fromLTRB(26, 15, 26, 21),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,10 +214,10 @@ class _ModalAddState extends State<ModalAdd> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: CustomTextField(
                         labelText: 'Tambah waktumu sendiri',
-                        fontSize: 15.5.sp,
+                        fontSize: 15.5,
                         fontFamily: 'Nunito-Bold',
                       ),
                     ),
@@ -213,7 +229,7 @@ class _ModalAddState extends State<ModalAdd> {
                     ),
                   ],
                 ),
-                SizedBox(height: 6.4.h),
+                const SizedBox(height: 6.4),
                 const CustomTextField(labelText: "Nama Timer : "),
                 TextField(
                   maxLength: 20,
@@ -223,7 +239,7 @@ class _ModalAddState extends State<ModalAdd> {
                     counterText: '',
                   ),
                 ),
-                SizedBox(height: 6.4.h),
+                const SizedBox(height: 6.4),
                 const CustomTextField(labelText: "Deskripsi : "),
                 TextField(
                   maxLength: 30,
@@ -233,19 +249,19 @@ class _ModalAddState extends State<ModalAdd> {
                     counterText: '',
                   ),
                 ),
-                SizedBox(height: 6.4.h),
+                const SizedBox(height: 6.4),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const CustomTextField(
                         labelText: "Waktu Fokus (dalam menit)"),
-                    SizedBox(height: 15.h),
+                    const SizedBox(height: 15),
                     SettingTimeWidget(
                       key: _settingTimeWidgetKey,
                       initialCounter: _counter,
                       onChanged: _handleTimerChange,
                     ),
-                    SizedBox(height: 10.h),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -257,13 +273,13 @@ class _ModalAddState extends State<ModalAdd> {
                           icon: isOptionOpen
                               ? SvgPicture.asset(
                                   "assets/images/option_up.svg",
-                                  width: 28.w,
-                                  height: 28.h,
+                                  width: 28,
+                                  height: 28,
                                 )
                               : SvgPicture.asset(
                                   "assets/images/option.svg",
-                                  width: 28.w,
-                                  height: 28.h,
+                                  width: 28,
+                                  height: 28,
                                   color: darkGrey,
                                 ),
                         ),
@@ -278,12 +294,13 @@ class _ModalAddState extends State<ModalAdd> {
                             color: Colors.grey,
                             thickness: 1,
                           ),
-                          SizedBox(height: 9.1.h),
+                          const SizedBox(height: 9.1),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               const CustomTextField(
-                                  labelText: "Aktifkan mode istirahat"),
+                                labelText: "Aktifkan mode istirahat",
+                              ),
                               const Spacer(),
                               CupertinoSwitchAdaptiveWidget(
                                 statusSwitch: statusSwitch,
@@ -295,7 +312,7 @@ class _ModalAddState extends State<ModalAdd> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 9.1.h),
+                          const SizedBox(height: 9.1),
                           const Divider(
                             color: Colors.grey,
                             thickness: 1,
@@ -303,20 +320,20 @@ class _ModalAddState extends State<ModalAdd> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
+                              const Row(
                                 children: [
-                                  const Expanded(
+                                  Expanded(
                                     child: CustomTextField(
                                         labelText: "Durasi Istirahat"),
                                   ),
-                                  SizedBox(width: 15.h),
-                                  const Expanded(
+                                  SizedBox(width: 15),
+                                  Expanded(
                                     child: CustomTextField(
                                         labelText: "Jumlah Istirahat"),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 14.6.h),
+                              const SizedBox(height: 14.6),
                               SettingBreakWidget(
                                 key: _settingBreakWidgetKey,
                                 statusSwitch: statusSwitch,
@@ -330,20 +347,20 @@ class _ModalAddState extends State<ModalAdd> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10.4.h),
+                    const SizedBox(height: 10.4),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
                           child: CustomButton(
-                            text: 'Reset',
+                            text: '  Reset  ',
                             primaryColor: Colors.white,
                             onPrimaryColor: cetaceanBlue,
                             borderSideColor: cetaceanBlue,
                             onPressed: _resetSetting,
                           ),
                         ),
-                        SizedBox(width: 14.6.w),
+                        const SizedBox(width: 14.6),
                         Expanded(
                           child: CustomButton(
                             text: 'Terapkan',

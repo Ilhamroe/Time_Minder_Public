@@ -67,6 +67,8 @@ class SQLHelper {
     final db = await SQLHelper.db();
     try {
       await db.delete('data', where: 'id = ?', whereArgs: [id]);
-    } catch (e) {}
+    } catch (e) {
+      print("Error deleting $id from database");
+    }
   }
 }
