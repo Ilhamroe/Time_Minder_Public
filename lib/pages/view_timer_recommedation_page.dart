@@ -113,7 +113,6 @@ class _TimerState extends State<TimerView> {
               "assets/images/button_back.svg",
               width: 28.w,
               height: 28.h,
-              color: cetaceanBlue,
             ),
           ),
           title: Column(
@@ -134,9 +133,10 @@ class _TimerState extends State<TimerView> {
                 style: TextStyle(
                   fontFamily: 'Nunito',
                   fontSize: 14.sp,
-                  color: Colors.black,
+                  color: cetaceanBlue,
                 ),
               ),
+              SizedBox(height: 10.h),
             ],
           ),
           centerTitle: true,
@@ -151,9 +151,9 @@ class _TimerState extends State<TimerView> {
             width: screenSize.width,
             height: screenSize.height,
             padding: EdgeInsets.symmetric(
-              horizontal: screenSize.width * 0.01.w,
-              vertical: screenSize.height * 0.05.w,
-            ).r,
+              horizontal: screenSize.width * 0.1.w,
+              vertical: screenSize.height * 0.1.w,
+            ).w,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -179,11 +179,12 @@ class _TimerState extends State<TimerView> {
                       ),
                     ),
                   ),
+                  SizedBox(height: screenSize.height * 0.07.h),
                   CircularCountDownTimer(
                     duration: timeInSec,
                     initialDuration: 0,
                     width: screenSize.width * 0.5.w,
-                    height: screenSize.height * 0.4.h,
+                    height: screenSize.width * 0.5.w,
                     controller: _controller,
                     ringColor: ring,
                     fillColor: _controller.isPaused ? red : ripeMango,
@@ -210,7 +211,7 @@ class _TimerState extends State<TimerView> {
                       startTimer();
                     },
                   ),
-                  // SizedBox(height: screenSize.height * 0.02.h),
+                  SizedBox(height: screenSize.height * 0.05.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -224,7 +225,7 @@ class _TimerState extends State<TimerView> {
                                 height: screenSize.width * 0.15.h,
                                 decoration: BoxDecoration(
                                   color: offBlue,
-                                  borderRadius: BorderRadius.circular(20).r,
+                                  borderRadius: BorderRadius.circular(20).w,
                                 ),
                               ),
                               GestureDetector(
@@ -246,7 +247,7 @@ class _TimerState extends State<TimerView> {
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                               vertical: 8.0)
-                                          .r,
+                                          .w,
                                     ),
                                     const Text(
                                       "Resume",
@@ -261,7 +262,7 @@ class _TimerState extends State<TimerView> {
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                               vertical: 8.0)
-                                          .r,
+                                          .w,
                                     ),
                                     const Text(
                                       "Pause",
@@ -284,7 +285,7 @@ class _TimerState extends State<TimerView> {
                                 height: screenSize.width * 0.15.h,
                                 decoration: BoxDecoration(
                                   color: offBlue,
-                                  borderRadius: BorderRadius.circular(20).r,
+                                  borderRadius: BorderRadius.circular(20).w,
                                 ),
                               ),
                               IconButton(
@@ -301,7 +302,7 @@ class _TimerState extends State<TimerView> {
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.0).r,
+                            padding: const EdgeInsets.symmetric(vertical: 8.0).w,
                           ),
                           const Text(
                             "Finish",
@@ -349,7 +350,7 @@ class _TimerState extends State<TimerView> {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(10.0).w,
           ),
           content: SizedBox(
             width: screenSize.width * 0.68.w,
@@ -476,7 +477,7 @@ class _TimerState extends State<TimerView> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0).r,
+                        borderRadius: BorderRadius.circular(10.0).w,
                         color: halfGrey,
                       ),
                       child: TextButton(
