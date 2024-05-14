@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:time_minder/utils/colors.dart';
 
 class AlertData extends StatefulWidget {
   const AlertData({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class _AlertDataState extends State<AlertData> {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     return AlertDialog(
+      surfaceTintColor: pureWhite,
       title: const Text(
         "Data tidak lengkap",
         style: TextStyle(

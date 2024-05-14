@@ -10,7 +10,6 @@ import 'package:time_minder/models/list_timer.dart';
 import 'package:time_minder/services/notif.dart';
 import 'package:time_minder/utils/colors.dart';
 import 'package:time_minder/widgets/common/bottom_navbar.dart';
-import 'package:time_minder/widgets/common/on_back_button.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -301,7 +300,7 @@ class _TimerState extends State<TimerView> {
                             ],
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.0).r,
+                            padding: const EdgeInsets.symmetric(vertical: 8.0).r,
                           ),
                           const Text(
                             "Finish",

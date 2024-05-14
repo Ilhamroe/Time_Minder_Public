@@ -258,7 +258,8 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                                     // Get the ID of the selected item
                                     int id = selectedItems.first;
                                     // Show the edit modal for the selected item
-                                    _showModal((int? id) {}, _allData[id]['id']);
+                                    _showModal(
+                                        (int? id) {}, _allData[id]['id']);
                                   } /* => _showModal((int? id) {}, _allData[index]['id'])*/,
                                   icon: SvgPicture.asset(
                                       "assets/images/edit_ui.svg",
@@ -471,7 +472,11 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
             controller: tabController,
             children: [
               ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 20).w,
+                padding: EdgeInsets.only(
+                  bottom: screenSize.height * 0.03,
+                  right: screenSize.width * 0.05,
+                  left: screenSize.width * 0.05,
+                ).r,
                 itemCount: 2,
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int index) {
@@ -487,32 +492,38 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                   }
                 },
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20).w,
-                child: _allData.isEmpty
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(
-                            "assets/images/cat_setting.svg",
-                            width: screenSize.width * 0.3.w,
-                          ),
-                          SizedBox(height: screenSize.width * 0.02.h),
-                          Text(
-                            "Ayo tambahkan timer sesuai keinginanmu!",
-                            style: TextStyle(
-                              fontFamily: 'Nunito',
-                              fontSize: 14.sp,
-                              color: darkGrey,
+              ListView(
+                padding: EdgeInsets.only(
+                  bottom: screenSize.height * 0.03,
+                  right: screenSize.width * 0.05,
+                  left: screenSize.width * 0.05,
+                ).r,
+                children: [
+                  _allData.isEmpty
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              "assets/images/cat_setting.svg",
+                              width: screenSize.width * 0.3.w,
                             ),
-                          ),
-                        ],
-                      )
-                    : ListTimerPageHold(
-                      allData: _allData,
-                      ),
-              )
+                            SizedBox(height: screenSize.width * 0.02.h),
+                            Text(
+                              "Ayo tambahkan timer sesuai keinginanmu!",
+                              style: TextStyle(
+                                fontFamily: 'Nunito',
+                                fontSize: 14.sp,
+                                color: darkGrey,
+                              ),
+                            ),
+                          ],
+                        )
+                      : ListTimerPageHold(
+                          allData: _allData,
+                        ),
+                ],
+              ),
             ],
           ),
         );
