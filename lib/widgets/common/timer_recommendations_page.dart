@@ -14,8 +14,7 @@ typedef ModalCloseCallback = void Function(int? id);
 class RecommendationTimerPage extends StatefulWidget {
   final bool isSettingPressed;
 
-  const RecommendationTimerPage({Key? key, required this.isSettingPressed})
-      : super(key: key);
+  const RecommendationTimerPage({super.key, required this.isSettingPressed});
 
   @override
   State<RecommendationTimerPage> createState() =>
@@ -55,7 +54,7 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: Timerlist.length,
+      itemCount: timerList.length,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: selectedItems.isNotEmpty
@@ -101,13 +100,13 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 10).w,
                   color: heliotrope,
                   child: SvgPicture.asset(
-                    Timerlist[index].image,
+                    timerList[index].image,
                     height: 30.h,
                   ),
                 ),
               ),
               title: Text(
-                Timerlist[index].title,
+                timerList[index].title,
                 style: TextStyle(
                   fontFamily: 'Nunito-Bold',
                   fontWeight: FontWeight.w900,
@@ -115,7 +114,7 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
                 ),
               ),
               subtitle: Text(
-                Timerlist[index].description,
+                timerList[index].description,
                 style: TextStyle(
                   fontFamily: 'Nunito',
                   fontWeight: FontWeight.w600,
@@ -128,7 +127,7 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
                     height: 12.h,
                   ),
                   Text(
-                    Timerlist[index].time,
+                    timerList[index].time,
                     style: TextStyle(
                       fontFamily: 'DMSans',
                       fontWeight: FontWeight.w600,
@@ -155,7 +154,8 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
                       ignoring: selectedItems.isNotEmpty,
                       child: Container(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 1, horizontal: 7).w,
+                                vertical: 1, horizontal: 7)
+                            .w,
                         decoration: BoxDecoration(
                           color: ripeMango,
                           borderRadius: BorderRadius.circular(5).w,

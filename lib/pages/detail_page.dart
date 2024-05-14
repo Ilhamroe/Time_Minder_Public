@@ -11,7 +11,7 @@ import 'package:time_minder/services/tooltip_storage.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
 class DetailPage extends StatefulWidget {
-  const DetailPage({Key? key}) : super(key: key);
+  const DetailPage({super.key});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -43,7 +43,7 @@ class _DetailPageState extends State<DetailPage> {
       hideSkip: true,
       opacityShadow: 0.5,
       onFinish: () {
-        print("Completed!");
+        // print("Completed!");
         SaveDetailPageTour().saveDetailPageStatus();
       },
     );
@@ -54,11 +54,11 @@ class _DetailPageState extends State<DetailPage> {
       SaveDetailPageTour().getDetailPageStatus().then((value) => {
             if (value == false)
               {
-                print("User has not seen this tutor"),
+                // print("User has not seen this tutor"),
                 tutorialCoachMark.show(context: context)
               }
-            else
-              {print("User has seen this tutor")}
+            // else
+            //   {print("User has seen this tutor")}
           });
     });
   }
@@ -379,7 +379,7 @@ class _DetailPageState extends State<DetailPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "${_formatTime(dataList[index]['elapsed'])}",
+                                  "${_formatTime(dataList[index]['elapsed'])} ",
                                   style: TextStyle(
                                     fontFamily: 'Nunito-Bold',
                                     fontWeight: FontWeight.w600,
@@ -388,7 +388,7 @@ class _DetailPageState extends State<DetailPage> {
                                   ),
                                 ),
                                 Text(
-                                  " / ${_formatTime(dataList[index]['timer'])}",
+                                  "/ ${_formatTime(dataList[index]['timer'])}",
                                   style: TextStyle(
                                     fontFamily: 'Nunito-Bold',
                                     fontWeight: FontWeight.w600,

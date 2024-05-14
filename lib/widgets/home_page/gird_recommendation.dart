@@ -14,14 +14,14 @@ class GridRekomendasi extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: screenSize.width < 200.w ? 2 : 3,
         crossAxisSpacing: screenSize.width * 0.03.w,
         mainAxisExtent: 187.w,
       ),
-      itemCount: Timerlist.length,
+      itemCount: timerList.length,
       itemBuilder: (context, int index) {
         return Container(
           decoration: BoxDecoration(
@@ -42,7 +42,7 @@ class GridRekomendasi extends StatelessWidget {
                   color: heliotrope,
                 ),
                 child: SvgPicture.asset(
-                  Timerlist[index].image,
+                  timerList[index].image,
                   height: screenSize.width * 0.1.h,
                 ),
               ),
@@ -53,7 +53,7 @@ class GridRekomendasi extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      Timerlist[index].title,
+                      timerList[index].title,
                       style: TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: screenSize.width * 0.037.sp,
@@ -63,7 +63,7 @@ class GridRekomendasi extends StatelessWidget {
                     ),
                     SizedBox(height: screenSize.width * 0.01.h),
                     Text(
-                      Timerlist[index].description,
+                      timerList[index].description,
                       style: TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: screenSize.width * 0.025.sp,
@@ -74,7 +74,7 @@ class GridRekomendasi extends StatelessWidget {
                     ),
                     SizedBox(height: screenSize.width * 0.01.h),
                     Text(
-                      Timerlist[index].time,
+                      timerList[index].time,
                       style: TextStyle(
                         fontFamily: 'Nunito',
                         fontSize: screenSize.width * 0.025.sp,
@@ -93,8 +93,8 @@ class GridRekomendasi extends StatelessWidget {
                         );
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 5).w,
-                        padding: EdgeInsets.symmetric(horizontal: 0.01).w,
+                        margin: const EdgeInsets.symmetric(horizontal: 5).w,
+                        padding: const EdgeInsets.symmetric(horizontal: 0.01).w,
                         decoration: BoxDecoration(
                           color: ripeMango,
                           borderRadius:

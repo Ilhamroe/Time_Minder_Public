@@ -12,7 +12,7 @@ class Timer {
   });
 }
 
-var Timerlist = [
+var timerList = [
   Timer(
     image: 'assets/images/cat1.svg',
     title: 'Short Timer',

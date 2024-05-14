@@ -5,10 +5,10 @@ class CupertinoSwitchAdaptiveWidget extends StatefulWidget {
   final Function(bool) onChanged;
 
   const CupertinoSwitchAdaptiveWidget({
-    Key? key,
+    super.key,
     required this.statusSwitch,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<CupertinoSwitchAdaptiveWidget> createState() =>

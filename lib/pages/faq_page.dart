@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_minder/utils/colors.dart';
 import 'package:time_minder/widgets/common/bottom_navbar.dart';
-import 'package:time_minder/widgets/faq_page/helpWidget1.dart';
-import 'package:time_minder/widgets/faq_page/helpWidget2.dart';
-import 'package:time_minder/widgets/faq_page/helpWidget3.dart';
-import 'package:time_minder/widgets/faq_page/helpWidget4.dart';
-import 'package:time_minder/widgets/faq_page/helpWidget5.dart';
+import 'package:time_minder/widgets/faq_page/help_widget1.dart';
+import 'package:time_minder/widgets/faq_page/help_widget2.dart';
+import 'package:time_minder/widgets/faq_page/help_widget3.dart';
+import 'package:time_minder/widgets/faq_page/help_widget4.dart';
+import 'package:time_minder/widgets/faq_page/help_widget5.dart';
 
 class FaqPage extends StatefulWidget {
   const FaqPage({super.key});
@@ -113,31 +113,31 @@ class _FaqPageState extends State<FaqPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HelpOne()));
+                                    builder: (context) => const HelpOne()));
                             break;
                           case 1:
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HelpTwo()));
+                                    builder: (context) => const HelpTwo()));
                             break;
                           case 2:
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HelpThree()));
+                                    builder: (context) => const HelpThree()));
                             break;
                           case 3:
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HelpFour()));
+                                    builder: (context) => const HelpFour()));
                             break;
                           case 4:
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HelpFive()));
+                                    builder: (context) => const HelpFive()));
                             break;
 
                           default:
@@ -153,8 +153,8 @@ class _FaqPageState extends State<FaqPage> {
                           ),
                           shape: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8).w,
-                              borderSide: BorderSide(color: gallery)),
-                          trailing: Icon(
+                              borderSide: const BorderSide(color: gallery)),
+                          trailing: const Icon(
                             Icons.arrow_forward_ios_rounded,
                             size: 14,
                           ),

@@ -7,10 +7,10 @@ class SettingTimeWidget extends StatefulWidget {
   final ValueChanged<int>? onChanged;
 
   const SettingTimeWidget({
-    Key? key,
+    super.key,
     required this.initialCounter,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   SettingTimeWidgetState createState() => SettingTimeWidgetState();

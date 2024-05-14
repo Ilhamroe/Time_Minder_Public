@@ -17,7 +17,7 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 class TimerView extends StatefulWidget {
   final int timerIndex;
 
-  const TimerView({Key? key, required this.timerIndex}) : super(key: key);
+  const TimerView({super.key, required this.timerIndex});
 
   @override
   State<TimerView> createState() => _TimerState();
@@ -301,7 +301,8 @@ class _TimerState extends State<TimerView> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0).w,
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 8.0).w,
                           ),
                           const Text(
                             "Finish",
@@ -322,7 +323,7 @@ class _TimerState extends State<TimerView> {
   }
 
   void _getDataByID() {
-    _timer = Timerlist[widget.timerIndex];
+    _timer = timerList[widget.timerIndex];
     _waktuMentah = _timer.time;
     _judul = _timer.title;
     _deskripsi = _timer.description;

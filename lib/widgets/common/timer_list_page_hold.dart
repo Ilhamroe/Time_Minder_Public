@@ -1,10 +1,7 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:time_minder/database/db_helper.dart';
-import 'package:time_minder/pages/timer_player.dart';
+import 'package:time_minder/pages/view_list_timer_page.dart';
 import 'package:time_minder/utils/colors.dart';
 import 'package:provider/provider.dart';
 import 'package:time_minder/widgets/common/providers.dart';
@@ -14,7 +11,7 @@ typedef ModalCloseCallback = void Function(int? id);
 class ListTimerPageHold extends StatefulWidget {
   final List<Map<String, dynamic>> allData;
 
-  const ListTimerPageHold({Key? key, required this.allData}) : super(key: key);
+  const ListTimerPageHold({super.key, required this.allData});
 
   @override
   State<ListTimerPageHold> createState() => _ListTimerPageHoldState();
@@ -79,7 +76,7 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
               child: Stack(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 14.0).h,
+                    margin: const EdgeInsets.only(top: 14.0).h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.0).w,
                       color: offOrange,

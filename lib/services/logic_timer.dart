@@ -45,7 +45,7 @@ class TimerJobs {
     }
 
     modeMap['workDuration${interval + 1}'] = remainingWorkDuration;
-    print(totalDuration);
+    // print(totalDuration);
 
     return newJobsTimer;
   }

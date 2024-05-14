@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       hideSkip: true,
       opacityShadow: 0.5,
       onFinish: () {
-        print("Completed!");
+        // print("Completed!");
         SaveInAppTour().saveHomePageStatus();
       },
     );
@@ -56,11 +56,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       SaveInAppTour().getHomePageStatus().then((value) => {
             if (value == false)
               {
-                print("User has not seen this tutor"),
+                // print("User has not seen this tutor"),
                 tutorialCoachMark.show(context: context)
               }
-            else
-              {print("User has seen this tutor")}
+            // else
+            //   {print("User has seen this tutor")}
           });
     });
   }
@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     data.forEach((element) {
       totalElapsed += element['elapsed'] as int;
     });
-    print(totalElapsed);
+    // print(totalElapsed);
   }
 
   String formatElapsedTime(int totalSeconds) {
@@ -147,11 +147,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _initializeGreeting();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   DateTime timeBackPressed = DateTime.now();
 
   @override
@@ -172,12 +167,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     Row(
                       children: [
                         Text(
-                          '$_greeting',
+                          '$_greeting ',
                           style: TextStyle(
                             fontFamily: 'Nunito-Bold',
                             fontSize: 22.42.sp,
                             fontWeight: FontWeight.w900,
-                            color: Color(0xFF091B35),
+                            color: cetaceanBlue,
                           ),
                         ),
                         SizedBox(width: 15.w),

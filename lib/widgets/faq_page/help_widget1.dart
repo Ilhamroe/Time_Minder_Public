@@ -72,7 +72,7 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
         surfaceTintColor: pureWhite,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
             horizontal: 20).w,
         child: SingleChildScrollView(
           child: Column(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:time_minder/widgets/faq_page/helpWidget1.dart';
+import 'package:time_minder/widgets/faq_page/help_widget1.dart';
 import 'package:time_minder/utils/colors.dart';
 
 class HelpFour extends StatefulWidget {

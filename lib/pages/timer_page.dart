@@ -17,7 +17,7 @@ final logger = Logger();
 typedef ModalCloseCallback = void Function(int? id);
 
 class TimerPage extends StatefulWidget {
-  const TimerPage({Key? key});
+  const TimerPage({super.key});
 
   @override
   State<TimerPage> createState() => _TimerPageState();
@@ -56,14 +56,6 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
 
   Future<void> _deleteData(int id) async {
     await SQLHelper.deleteData(id);
-    _refreshData();
-  }
-
-// Handler untuk delete multiple data by ID
-  Future<void> _deleteMultipleData(List<int> ids) async {
-    for (int id in ids) {
-      await SQLHelper.deleteData(id);
-    }
     _refreshData();
   }
 

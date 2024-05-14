@@ -1,659 +1,673 @@
-// import 'dart:async';
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:flutter/material.dart';
-// import 'package:time_minder/database/db_helper.dart';
-// import 'package:audioplayers/audioplayers.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-// import 'package:time_minder/services/notif.dart';
-// import 'package:time_minder/utils/colors.dart';
-// import 'package:time_minder/widgets/common/bottom_navbar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:circular_countdown_timer/circular_countdown_timer.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:time_minder/database/db_calendar.dart';
+import 'package:time_minder/database/db_helper.dart';
+import 'package:time_minder/models/list_jobs.dart';
+import 'package:time_minder/services/logic_timer.dart';
+import 'package:time_minder/utils/colors.dart';
+import 'package:time_minder/services/notif.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:time_minder/widgets/common/bottom_navbar.dart';
 
-// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-//     FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
-// class ViewListTimerPage extends StatefulWidget {
-//   final Map<String, dynamic> data;
-//   const ViewListTimerPage({Key? key, required this.data}) : super(key: key);
+class CombinedTimerPage extends StatefulWidget {
+  final int id;
 
-//   @override
-//   State<ViewListTimerPage> createState() => _ViewListTimerPageState();
-// }
+  const CombinedTimerPage({super.key, required this.id});
 
-// class _ViewListTimerPageState extends State<ViewListTimerPage> {
-//   bool isRestTime = false;
-//   int currentTimerValue = 0;
-//   bool _isTimerRunning = false;
-//   bool statusSwitch = false;
-//   bool hideContainer = true;
-//   bool isSoundPlayed = false;
-//   bool isLoading = false;
-//   late List<Map<String, dynamic>> allData = [];
-//   late CountDownController _controller;
-//   List<String> modeList = [];
-//   final player = AudioPlayer();
-//   late Timer _timer;
-//   Map<String, Timer> scheduledNotifications = {};
-//   late Map<String, int> modeMap;
+  @override
+  State<CombinedTimerPage> createState() => _CombinedTimerPageState();
+}
 
-//   int get inTimeMinutes => widget.data['timer'];
-//   int get inRestMinutes => widget.data['rest'] ?? 0;
-//   int get interval => widget.data['interval'] ?? 1;
-//   int get inTimeSeconds => inTimeMinutes * 60;
-//   int get inRestSeconds => inRestMinutes * 60;
+class _CombinedTimerPageState extends State<CombinedTimerPage> {
+  final _cDController = CountDownController();
+  final _player = AudioPlayer();
+  late Future<List<Map<String, dynamic>>> _dataFuture;
+  late List<ListJobs> _jobsTimer;
+  late int _currentJobIndex;
+  late String _title;
+  late String _description;
+  late int _timer;
+  late int _rest;
+  late int _interval;
+  bool isStarted = false;
+  late int sum;
+  late DateTime endTime;
+  DateTime? pauseTime;
+  var pauseCount = 0;
+  var istirahatCount = 0;
 
-//   Map<String, dynamic> allMode(
-//       int inTimeMinutes, int inRestMinutes, int interval) {
-//     int inTimeSeconds = inTimeMinutes * 60;
-//     int inRestSeconds = inRestMinutes * 60;
+  void _pauseOrResume() {
+    setState(() {
+      if (_cDController.isPaused) {
+        pauseCount += DateTime.now().difference(pauseTime!).inSeconds;
+        pauseTime = null;
+        _player.play(AssetSource('sounds/resume.wav'));
+        _cDController.resume();
+        _showNotification('Timer dilanjutkan');
+      } else {
+        pauseTime = DateTime.now();
+        _player.play(AssetSource('sounds/pause.wav'));
+        _cDController.pause();
+        _showNotification('Timer dihentikan');
+      }
+    });
+  }
 
-//     int focusTime = inTimeSeconds ~/ (interval + 1);
-//     int restTime = inRestSeconds;
+  void _clearJobs() {
+    setState(() {
+      _currentJobIndex = 0;
+      _cDController.restart(
+          duration: _jobsTimer[_currentJobIndex].duration * 60);
+      _showNotification('Timer Selesai');
+      _player.play(AssetSource('sounds/nothing.wav'));
+    });
+  }
 
-//     Map<String, dynamic> modeMap = {};
-//     Color color;
+  int findIntervalLoop(int interval) {
+    return interval * 2 + 1;
+  }
 
-//     // Total waktu fokus dan waktu istirahat
-//     int totalFocusTime = 0;
-//     int totalRestTime = 0;
+  void addData() async {
+    final elapsed = (_timer * 60) -
+        (endTime
+            .difference(DateTime.now().subtract(Duration(seconds: pauseCount)))
+            .inSeconds) -
+        (_rest * 60 * istirahatCount);
+    final completed =
+        elapsed >= ((_timer * 60) + (_rest * 60 * istirahatCount)) ? 1 : 0;
 
-//     for (int i = 0; i < interval; i++) {
-//       modeMap['workDuration${i + 1}'] = focusTime;
-//       modeMap['restDuration${i + 1}'] = restTime;
+    await DBCalendar.createData(
+      _title,
+      _description,
+      (_timer * 60),
+      elapsed,
+      completed,
+      DateTime.now().toIso8601String(),
+    );
+  }
 
-//       if (i % 2 == 0) {
-//         color = ripeMango;
-//         totalFocusTime +=
-//             focusTime; // Menambahkan waktu fokus ke total waktu fokus
-//       } else {
-//         color = red;
-//         totalRestTime +=
-//             restTime; // Menambahkan waktu istirahat ke total waktu istirahat
-//       }
-//       modeMap['color${i + 1}'] = color;
-//     }
+  @override
+  void initState() {
+    super.initState();
+    Notif.initialize(flutterLocalNotificationsPlugin);
+    _dataFuture = SQLHelper.getSingleData(widget.id);
+    _currentJobIndex = 0;
+    _title = '';
+    _description = '';
+    _timer = 0;
+    _rest = 0;
+    _interval = 0;
+    _jobsTimer = [];
+    _cDController.pause();
+    _initVariable();
+  }
 
-//     modeMap['workDuration${interval + 1}'] = focusTime;
-//     modeMap['color${interval + 1}'] = null;
+  void _initVariable() async {
+    await _dataFuture.then((value) {
+      final data = value.isNotEmpty ? value[0] : {};
+      setState(() {
+        _title = data['title'] ?? '';
+        _description = data['description'] ?? '';
+        _timer = data['timer'] ?? 0;
+        _rest = data['rest'] ?? 0;
+        _interval = data['interval'] ?? 0;
+        final newJobs = TimerJobs(
+          title: _title,
+          description: _description,
+          timer: _timer,
+          rest: _rest,
+          interval: _interval,
+        );
+        _jobsTimer = newJobs.getAllMode(_timer, _rest, _interval);
+        sum = ((_timer + (_rest * _interval)) * 60);
+      });
+    });
+    endTime = DateTime.now().add(Duration(seconds: (_timer * 60)));
+  }
 
-//     // Menambahkan waktu fokus untuk interval terakhir ke total waktu fokus
-//     totalFocusTime += focusTime;
+  Future<void> _queueTimerJob() async {
+    setState(() {
+      if (_currentJobIndex < _jobsTimer.length - 1) {
+        if (_cDController.isPaused) {
+          pauseCount += DateTime.now().difference(pauseTime!).inSeconds;
+          pauseTime = null;
+        }
+        _cDController.restart(
+            duration: _jobsTimer[++_currentJobIndex].duration);
+        if (_jobsTimer[_currentJobIndex].type == 'ISTIRAHAT') {
+          istirahatCount++;
+          _player.play(AssetSource('sounds/jobs.wav'));
+          _showNotification("Waktunya Istirahat");
+        }
+        if (_jobsTimer[_currentJobIndex].type == 'FOKUS') {
+          _player.play(AssetSource('sounds/jobs.wav'));
+          _showNotification("Istirahat Selesai");
+        }
+      } else {
+        _player.play(AssetSource('sounds/end.wav'));
+        _showNotification("Timer Selesai");
+        _cDController.pause();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const NavbarBottom(),
+          ),
+        );
+        addData();
+      }
+    });
+  }
 
-//     int totalDurationInMinutes = totalFocusTime + totalRestTime;
+  Color getColorRing() {
+    if (_cDController.isPaused ||
+        _jobsTimer[_currentJobIndex].type == 'ISTIRAHAT') {
+      return red;
+    } else {
+      return ripeMango;
+    }
+  }
 
-//     return {
-//       'modeMap': modeMap,
-//       'totalFocusTime': totalFocusTime,
-//       'totalRestTime': totalRestTime,
-//       'totalDurationInMinutes': totalDurationInMinutes
-//     };
-//   }
+  Color getColor() {
+    if (_cDController.isPaused ||
+        _jobsTimer[_currentJobIndex].type == 'ISTIRAHAT') {
+      return offRed;
+    } else {
+      return offYellow;
+    }
+  }
 
-// // // Memanggil fungsi allMode untuk mendapatkan data mode
-// //   Map<String, dynamic> modeData =
-// //       allMode(inTimeMinutes, inRestMinutes, interval);
-// //   int totalDurationInMinutes = modeData['totalDurationInMinutes'];
+  void _showNotification(String message) {
+    Notif.showBigTextNotification(
+      title: "TimeMinder",
+      body: message,
+      fln: flutterLocalNotificationsPlugin,
+    );
+  }
 
-//   int get inTimeBreak {
-//     if (inRestMinutes == 0 && interval == 1) {
-//       return inTimeSeconds;
-//     } else if (inRestMinutes > 0 && interval == 1) {
-//       return inTimeSeconds + inRestSeconds;
-//     } else if (inRestMinutes > 0 && interval > 1) {
-//       return inTimeSeconds + (inRestSeconds * interval);
-//     } else {
-//       return inTimeSeconds;
-//     }
-//   }
+  // Future<bool> _onBackButtonPressed(BuildContext context) async {
+  //   bool? exitApp = await showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return const AlertDialog();
+  //     },
+  //   );
+  //   return exitApp ?? false;
+  // }
 
-//   // Map<String, int> getAllMode(
-//   //     int inTimeMinutes, int inRestMinutes, int interval) {
-//   //   int inTimeSeconds = inTimeMinutes * 60;
-//   //   int inRestSeconds = inRestMinutes * 60;
+  Future<bool> _onBackButtonPressed(BuildContext context) async {
+    bool? exitApp = await _showPopupBack(context);
+    return exitApp ?? false;
+  }
 
-//   //   int workDuration = inTimeSeconds ~/ (interval + 2);
-//   //   int restDuration = inRestSeconds;
+  @override
+  Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    return WillPopScope(
+      onWillPop: () => _onBackButtonPressed(context),
+      child: Scaffold(
+        backgroundColor: pureWhite,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              _showPopup();
+            },
+            icon: SvgPicture.asset(
+              "assets/images/button_back.svg",
+              width: 28.w,
+              height: 28.h,
+            ),
+          ),
+          title: Column(
+            children: [
+              SizedBox(height: 20.h),
+              Text(
+                _title,
+                style: const TextStyle(
+                  fontFamily: 'Nunito-Bold',
+                  fontWeight: FontWeight.w600,
+                  color: cetaceanBlue,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 10.h),
+              Text(
+                _description,
+                style: TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 14.sp,
+                  color: cetaceanBlue,
+                ),
+              ),
+              SizedBox(height: 10.h),
+            ],
+          ),
+          centerTitle: true,
+          backgroundColor: pureWhite,
+          toolbarHeight: 80.h,
+        ),
+        body: SafeArea(
+          child: Container(
+            decoration: const BoxDecoration(
+              color: pureWhite,
+            ),
+            width: screenSize.width,
+            height: screenSize.height,
+            padding: EdgeInsets.symmetric(
+              horizontal: screenSize.width * 0.1.w,
+              vertical: screenSize.height * 0.1.w,
+            ),
+            child: Center(
+              child: FutureBuilder<List<Map<String, dynamic>>>(
+                future: _dataFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10).w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10).w,
+                            color: getColor(),
+                            border: Border.all(
+                              color: getColorRing(),
+                              width: 1.w,
+                            ),
+                          ),
+                          child: Text(
+                            _jobsTimer[_currentJobIndex].title,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Nunito-Bold',
+                              fontSize: 20.sp,
+                              color: cetaceanBlue,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: screenSize.height * 0.07.h),
+                        CircularCountDownTimer(
+                            duration: _jobsTimer[_currentJobIndex].duration,
+                            initialDuration: 0,
+                            controller: _cDController,
+                            width: screenSize.width * 0.5.w,
+                            height: screenSize.width * 0.5.w,
+                            ringColor: ring,
+                            fillColor: getColorRing(),
+                            fillGradient: LinearGradient(
+                              begin: Alignment.bottomLeft,
+                              end: Alignment.topRight,
+                              colors: [getColorRing(), offOrange],
+                            ),
+                            strokeWidth: 20.0,
+                            textStyle: TextStyle(
+                              fontSize: screenSize.width * 0.1.sp,
+                              color:
+                                  _cDController.isPaused ? red : cetaceanBlue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            isReverse: true,
+                            isReverseAnimation: false,
+                            isTimerTextShown: true,
+                            strokeCap: StrokeCap.round,
+                            onStart: () {
+                              _player.play(AssetSource('sounds/start.wav'));
+                              _showNotification("Timer dimulai");
+                            },
+                            onComplete: () => _queueTimerJob()),
+                        SizedBox(height: screenSize.height * 0.05.h),
+                        _jobsTimer[_currentJobIndex].type == 'ISTIRAHAT'
+                            ? Container(
+                                // child: SvgPicture.asset(
+                                //   'assets/images/cat_clock.svg',
+                                //   width: screenSize.width * 0.23.w,
+                                //   height: screenSize.width * 0.23.h,
+                                // ),
+                                )
+                            : Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Column(
+                                    children: [
+                                      Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Container(
+                                            width: screenSize.width * 0.15.w,
+                                            height: screenSize.width * 0.15.h,
+                                            decoration: BoxDecoration(
+                                              color: offBlue,
+                                              borderRadius:
+                                                  BorderRadius.circular(20).w,
+                                            ),
+                                          ),
+                                          GestureDetector(
+                                            onTap: _pauseOrResume,
+                                            child: SvgPicture.asset(
+                                              _cDController.isPaused
+                                                  ? "assets/images/play.svg"
+                                                  : "assets/images/pause.svg",
+                                              width: screenSize.width * 0.07.w,
+                                              height: screenSize.width * 0.07.h,
+                                              color: blueJeans,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      isStarted
+                                          ? Column(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 8.0)
+                                                      .w,
+                                                ),
+                                                const Text(
+                                                  "Resume",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Nunito',
+                                                      color: cetaceanBlue),
+                                                ),
+                                              ],
+                                            )
+                                          : Column(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                          vertical: 8.0)
+                                                      .w,
+                                                ),
+                                                const Text(
+                                                  "Pause",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Nunito',
+                                                      color: cetaceanBlue),
+                                                ),
+                                              ],
+                                            )
+                                    ],
+                                  ),
+                                  SizedBox(width: screenSize.width * 0.2.w),
+                                  Column(
+                                    children: [
+                                      Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Container(
+                                            width: screenSize.width * 0.15.w,
+                                            height: screenSize.width * 0.15.h,
+                                            decoration: BoxDecoration(
+                                              color: offBlue,
+                                              borderRadius:
+                                                  BorderRadius.circular(20).w,
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              _showPopup();
+                                            },
+                                            icon: SvgPicture.asset(
+                                              "assets/images/check.svg",
+                                              width: screenSize.width * 0.07.w,
+                                              height: screenSize.width * 0.07.h,
+                                              color: blueJeans,
+                                            ),
+                                            color: blueJeans,
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0)
+                                            .w,
+                                      ),
+                                      const Text(
+                                        "Finish",
+                                        style: TextStyle(
+                                            fontFamily: 'Nunito',
+                                            color: cetaceanBlue),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                      ],
+                    );
+                  }
+                },
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
-//   //   Map<String, int> modeMap = {};
-//   //   for (int i = 0; i < interval; i++) {
-//   //     modeMap['workDuration${i + 1}'] = workDuration;
-//   //     modeMap['restDuration${i + 1}'] = restDuration;
-//   //   }
+  Future<void> buttonConfirm() async {
+    _clearJobs();
+    if (pauseTime != null) {
+      pauseCount += DateTime.now().difference(pauseTime!).inSeconds;
+    }
+    setState(() {
+      _showNotification("Timer dihentikan");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const NavbarBottom(),
+        ),
+      );
+      addData();
+    });
+  }
 
-//   //   int remainingWorkDuration = inTimeSeconds - (workDuration * interval);
-//   //   modeMap['workDuration${interval + 1}'] = remainingWorkDuration;
+  Future<void> buttonConfirmBack() async {
+    _clearJobs();
+    setState(() {
+      _showNotification("Timer dihentikan");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const NavbarBottom(),
+        ),
+      );
+    });
+  }
 
-//   //   return modeMap;
-//   // }
+  void _showPopup() {
+    final screenSize = MediaQuery.of(context).size;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          surfaceTintColor: pureWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0).w,
+          ),
+          content: SizedBox(
+            width: screenSize.width * 0.68.w,
+            height: screenSize.height * 0.42.h,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: screenSize.height * 0.2.h,
+                  child: SvgPicture.asset(
+                    'assets/images/confirm_popup.svg',
+                    fit: BoxFit.contain,
+                    width: screenSize.width * 0.2.w,
+                    height: screenSize.width * 0.2.h,
+                  ),
+                ),
+                Text(
+                  (_jobsTimer[_currentJobIndex].type == 'ISTIRAHAT')
+                      ? "Progress tidak tersimpan,"
+                      : 'Kembali ke Beranda,',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 15.sp,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  "Apakah Anda yakin?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 21.sp,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0).r,
+                        color: halfGrey,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Tidak",
+                          style: TextStyle(color: offGrey),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 30.w),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0).r,
+                        color: ripeMango,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          if (_jobsTimer[_currentJobIndex].type ==
+                              'ISTIRAHAT') {
+                            buttonConfirmBack();
+                          } else {
+                            buttonConfirm();
+                          }
+                        },
+                        child: const Text(
+                          "Ya",
+                          style: TextStyle(color: offGrey),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
-//   void startTimer() async {
-//     player.play(AssetSource('sounds/start.wav'));
-//     _showNotification("Timer dimulai");
-//     isSoundPlayed = true;
-//     // for (int i = 0; i < interval; i++) {
-//     //   int workDuration = getAllMode(
-//     //       inTimeMinutes!, inRestMinutes!, interval)['workDuration${i + 1}']!;
-//     //   int restDuration = getAllMode(
-//     //       inTimeMinutes!, inRestMinutes!, interval)['restDuration${i + 1}']!;
-//     //   scheduleNotification(
-//     //       Duration(seconds: workDuration), "Waktunya Istirahat", false);
-//     //   scheduleNotification(Duration(seconds: workDuration + restDuration),
-//     //       "Istirahat Selesai", true);
-//     // }
-//   }
-
-//   void resumeTimer() async {
-//     setState(() {
-//       _controller.resume();
-//       _isTimerRunning = false;
-//       _showNotification("Timer dilanjutkan");
-//     });
-
-//     try {
-//       await player.play(AssetSource("sounds/resume.wav"));
-//       isSoundPlayed = true;
-//     } catch (e) {
-//       print("Error playing sound: $e");
-//     }
-//   }
-
-//   void pauseTimer() async {
-//     setState(() {
-//       _controller.pause();
-//       _isTimerRunning = true;
-//       _showNotification("Timer dijeda");
-//       cancelAllNotifications();
-//     });
-
-//     try {
-//       await player.play(AssetSource("sounds/pause.wav"));
-//       isSoundPlayed = false;
-//     } catch (e) {
-//       print("Error playing sound: $e");
-//     }
-//   }
-
-//   void _startRestTimer() {
-//     int focusTime = inTimeSeconds ~/ (interval + 1);
-//     int restTime = inRestSeconds;
-
-//     for (int i = 0; i < interval; i++) {
-//       print('Start rest timer for interval ${i + 1}');
-//       print('Rest time: $restTime seconds');
-//     }
-//     print('Last focus time (without rest): $focusTime seconds');
-//   }
-
-//   void completeTimer() {
-//     setState(() {
-//       _showNotification('Timer selesai');
-//       player.play(AssetSource("sounds/end.wav"));
-//       Navigator.push(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => const NavbarBottom(),
-//         ),
-//       );
-//       cancelAllNotifications();
-//     });
-//   }
-
-//   Future<void> buttonConfirm() async {
-//     setState(() {
-//       _showNotification("Timer dihentikan");
-//       cancelAllNotifications();
-//       Navigator.push(
-//         context,
-//         MaterialPageRoute(
-//           builder: (context) => const NavbarBottom(),
-//         ),
-//       );
-//     });
-//   }
-
-//   void _showNotification(String message) {
-//     Notif.showBigTextNotification(
-//       title: "TimeMinder",
-//       body: message,
-//       fln: flutterLocalNotificationsPlugin,
-//     );
-//   }
-
-//   void scheduleNotification(
-//       Duration duration, String message, bool isEndOfBreak) {
-//     Timer timer = Timer(duration, () {
-//       _showNotification(message);
-//       if (isEndOfBreak) {
-//         player.play(AssetSource('sounds/end.wav'));
-//       } else {
-//         player.play(AssetSource('sounds/start.wav'));
-//       }
-//     });
-//     scheduledNotifications[message] = timer;
-//   }
-
-//   void cancelNotification(String message) {
-//     Timer? timer = scheduledNotifications[message];
-//     if (timer != null) {
-//       timer.cancel();
-//       scheduledNotifications.remove(message);
-//     }
-//   }
-
-//   void cancelAllNotifications() {
-//     for (Timer timer in scheduledNotifications.values) {
-//       timer.cancel();
-//     }
-//     scheduledNotifications.clear();
-//   }
-
-//   Future<void> _refreshData() async {
-//     final List<Map<String, dynamic>> data = await SQLHelper.getAllData();
-//     setState(() {
-//       allData = data;
-//       isLoading = false;
-//     });
-//   }
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     _refreshData();
-//     cancelAllNotifications();
-//     _controller = CountDownController();
-//     Notif.initialize(flutterLocalNotificationsPlugin);
-//     player.onPlayerComplete.listen((event) {
-//       setState(() {
-//         isSoundPlayed = false;
-//       });
-//     });
-//   }
-
-//   @override
-//   void dispose() {
-//     _timer.cancel();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final Map<String, dynamic> data = widget.data;
-//     return WillPopScope(
-//       onWillPop: () => _onBackButtonPressed(context),
-//       child: Scaffold(
-//         appBar: AppBar(
-//           leading: IconButton(
-//             onPressed: () {
-//               _showPopupModal();
-//             },
-//             icon: SvgPicture.asset(
-//               "assets/images/button_back.svg",
-//               width: 30,
-//               height: 30,
-//               color: cetaceanBlue,
-//             ),
-//           ),
-//           title: Column(
-//             children: [
-//               const SizedBox(height: 20),
-//               Text(
-//                 data['title'],
-//                 style: const TextStyle(
-//                   fontFamily: 'Nunito-Bold',
-//                   fontWeight: FontWeight.w600,
-//                   color: cetaceanBlue,
-//                 ),
-//                 textAlign: TextAlign.center,
-//               ),
-//               const SizedBox(height: 10),
-//               Text(
-//                 data['description'],
-//                 style: const TextStyle(
-//                   fontFamily: 'Nunito',
-//                   fontSize: 14,
-//                   color: Colors.black,
-//                 ),
-//               ),
-//               SizedBox(height: 10),
-//             ],
-//           ),
-//           centerTitle: true,
-//           backgroundColor: pureWhite,
-//           toolbarHeight: 80,
-//         ),
-//         body: SafeArea(
-//           child: Container(
-//             decoration: const BoxDecoration(
-//               color: pureWhite,
-//             ),
-//             width: MediaQuery.of(context).size.width,
-//             height: MediaQuery.of(context).size.height,
-//             padding: EdgeInsets.symmetric(
-//               horizontal: MediaQuery.of(context).size.width * 0.1,
-//               vertical: MediaQuery.of(context).size.height * 0.1,
-//             ),
-//             child: Center(
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.center,
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 children: <Widget>[
-//                   const Text(
-//                     "isRestTime ? `Mode Istirahat` | `Mode Fokus`",
-//                     style: const TextStyle(
-//                       fontFamily: 'Nunito-Bold',
-//                       fontSize: 21,
-//                       color: Colors.black,
-//                     ),
-//                   ),
-//                   CircularCountDownTimer(
-//                     duration: 0,
-//                     initialDuration: 0,
-//                     width: MediaQuery.of(context).size.width * 0.5,
-//                     height: MediaQuery.of(context).size.height * 0.4,
-//                     controller: _controller,
-//                     ringColor: ring,
-//                     fillColor: _controller.isPaused ? red : ripeMango,
-//                     fillGradient: LinearGradient(
-//                       begin: Alignment.bottomLeft,
-//                       end: Alignment.topRight,
-//                       colors: _controller.isPaused
-//                           ? [red, offOrange]
-//                           : [ripeMango, offOrange],
-//                     ),
-//                     strokeWidth: 20.0,
-//                     isReverse: true,
-//                     isReverseAnimation: false,
-//                     isTimerTextShown: true,
-//                     strokeCap: StrokeCap.round,
-//                     autoStart: true,
-//                     textStyle: TextStyle(
-//                       fontSize: MediaQuery.of(context).size.width * 0.1,
-//                       color: _controller.isPaused ? red : cetaceanBlue,
-//                       fontWeight: FontWeight.bold,
-//                     ),
-//                     onComplete: () => completeTimer(),
-//                     onStart: () {
-//                       startTimer();
-//                     },
-//                   ),
-//                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: <Widget>[
-//                       Column(
-//                         children: [
-//                           Stack(
-//                             alignment: Alignment.center,
-//                             children: [
-//                               Container(
-//                                 width: MediaQuery.of(context).size.width * 0.15,
-//                                 height:
-//                                     MediaQuery.of(context).size.width * 0.15,
-//                                 decoration: BoxDecoration(
-//                                   color: offBlue,
-//                                   borderRadius: BorderRadius.circular(20),
-//                                 ),
-//                               ),
-//                               GestureDetector(
-//                                 onTap:
-//                                     _isTimerRunning ? resumeTimer : pauseTimer,
-//                                 child: SvgPicture.asset(
-//                                   _isTimerRunning
-//                                       ? "assets/images/play.svg"
-//                                       : "assets/images/pause.svg",
-//                                   width:
-//                                       MediaQuery.of(context).size.width * 0.07,
-//                                   height:
-//                                       MediaQuery.of(context).size.width * 0.07,
-//                                   color: blueJeans,
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                           _isTimerRunning
-//                               ? const Column(
-//                                   children: [
-//                                     const Padding(
-//                                       padding:
-//                                           EdgeInsets.symmetric(vertical: 8.0),
-//                                     ),
-//                                     const Text(
-//                                       "Resume",
-//                                       style: TextStyle(
-//                                           fontFamily: 'Nunito',
-//                                           color: cetaceanBlue),
-//                                     ),
-//                                   ],
-//                                 )
-//                               : const Column(
-//                                   children: [
-//                                     const Padding(
-//                                       padding:
-//                                           EdgeInsets.symmetric(vertical: 8.0),
-//                                     ),
-//                                     const Text(
-//                                       "Pause",
-//                                       style: TextStyle(
-//                                           fontFamily: 'Nunito',
-//                                           color: cetaceanBlue),
-//                                     ),
-//                                   ],
-//                                 )
-//                         ],
-//                       ),
-//                       SizedBox(width: MediaQuery.of(context).size.width * 0.2),
-//                       Column(
-//                         children: [
-//                           Stack(
-//                             alignment: Alignment.center,
-//                             children: [
-//                               Container(
-//                                 width: MediaQuery.of(context).size.width * 0.15,
-//                                 height:
-//                                     MediaQuery.of(context).size.width * 0.15,
-//                                 decoration: BoxDecoration(
-//                                   color: offBlue,
-//                                   borderRadius: BorderRadius.circular(20),
-//                                 ),
-//                               ),
-//                               IconButton(
-//                                 onPressed: () {
-//                                   _showPopupModal();
-//                                 },
-//                                 icon: SvgPicture.asset(
-//                                   "assets/images/check.svg",
-//                                   width:
-//                                       MediaQuery.of(context).size.width * 0.07,
-//                                   height:
-//                                       MediaQuery.of(context).size.width * 0.07,
-//                                   color: blueJeans,
-//                                 ),
-//                                 color: blueJeans,
-//                               ),
-//                             ],
-//                           ),
-//                           const Padding(
-//                             padding: EdgeInsets.symmetric(vertical: 8.0),
-//                           ),
-//                           const Text(
-//                             "Finish",
-//                             style: TextStyle(
-//                                 fontFamily: 'Nunito', color: cetaceanBlue),
-//                           ),
-//                         ],
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   Future<bool> _onBackButtonPressed(BuildContext context) async {
-//     bool? exitApp = await showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           surfaceTintColor: Colors.transparent,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(10.0),
-//           ),
-//           content: SizedBox(
-//             width: MediaQuery.of(context).size.width * 0.68,
-//             height: MediaQuery.of(context).size.height * 0.42,
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * 0.2,
-//                   child: SvgPicture.asset(
-//                     'assets/images/confirm_popup.svg',
-//                     fit: BoxFit.contain,
-//                     width: MediaQuery.of(context).size.width * 0.2,
-//                     height: MediaQuery.of(context).size.width * 0.2,
-//                   ),
-//                 ),
-//                 const SizedBox(height: 20.0),
-//                 const Text(
-//                   "Izinkan timer berjalan di latar belakang",
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(
-//                     fontFamily: 'Nunito',
-//                     fontSize: 21,
-//                   ),
-//                 ),
-//                 const SizedBox(height: 20.0),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     Container(
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                         color: halfGrey,
-//                       ),
-//                       child: TextButton(
-//                         onPressed: () {
-//                           Navigator.of(context).pop(false);
-//                         },
-//                         child: const Text(
-//                           "Tidak",
-//                           style: TextStyle(color: offGrey),
-//                         ),
-//                       ),
-//                     ),
-//                     const SizedBox(width: 30),
-//                     Container(
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                         color: ripeMango,
-//                       ),
-//                       child: TextButton(
-//                         onPressed: () {
-//                           buttonConfirm();
-//                         },
-//                         child: const Text(
-//                           "Ya",
-//                           style: TextStyle(color: offGrey),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//     return exitApp ?? false;
-//   }
-
-//   Future<void> _showPopupModal() async {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(10.0),
-//           ),
-//           content: SizedBox(
-//             width: MediaQuery.of(context).size.width * 0.68,
-//             height: MediaQuery.of(context).size.height * 0.42,
-//             child: Column(
-//               mainAxisSize: MainAxisSize.min,
-//               children: [
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * 0.2,
-//                   child: SvgPicture.asset(
-//                     'assets/images/confirm_popup.svg',
-//                     fit: BoxFit.contain,
-//                     width: MediaQuery.of(context).size.width * 0.2,
-//                     height: MediaQuery.of(context).size.width * 0.2,
-//                   ),
-//                 ),
-//                 const Text(
-//                   "Kembali ke Beranda,",
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(
-//                     fontFamily: 'Nunito',
-//                     fontSize: 15,
-//                   ),
-//                 ),
-//                 const SizedBox(height: 20.0),
-//                 const Text(
-//                   "Apakah Anda yakin?",
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(
-//                     fontFamily: 'Nunito',
-//                     fontSize: 21,
-//                   ),
-//                 ),
-//                 const SizedBox(height: 20.0),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     Container(
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                         color: halfGrey,
-//                       ),
-//                       child: TextButton(
-//                         onPressed: () {
-//                           Navigator.of(context).pop();
-//                         },
-//                         child: const Text(
-//                           "Tidak",
-//                           style: TextStyle(color: offGrey),
-//                         ),
-//                       ),
-//                     ),
-//                     const SizedBox(width: 30),
-//                     Container(
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(10.0),
-//                         color: ripeMango,
-//                       ),
-//                       child: TextButton(
-//                         onPressed: () {
-//                           buttonConfirm();
-//                         },
-//                         child: const Text(
-//                           "Ya",
-//                           style: TextStyle(color: offGrey),
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
+  Future<bool?> _showPopupBack(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    return showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          surfaceTintColor: pureWhite,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0).w,
+          ),
+          content: SizedBox(
+            width: screenSize.width * 0.68.w,
+            height: screenSize.height * 0.42.h,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: screenSize.height * 0.2.h,
+                  child: SvgPicture.asset(
+                    'assets/images/confirm_popup.svg',
+                    fit: BoxFit.contain,
+                    width: screenSize.width * 0.2.w,
+                    height: screenSize.width * 0.2.h,
+                  ),
+                ),
+                Text(
+                  (_jobsTimer[_currentJobIndex].type == 'ISTIRAHAT')
+                      ? "Progress tidak tersimpan,"
+                      : 'Kembali ke Beranda,',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 15.sp,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Text(
+                  "Apakah Anda yakin?",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 21.sp,
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0).w,
+                        color: halfGrey,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          "Tidak",
+                          style: TextStyle(color: offGrey),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 30.w),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0).w,
+                        color: ripeMango,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          if (_jobsTimer[_currentJobIndex].type ==
+                              'ISTIRAHAT') {
+                            buttonConfirmBack();
+                          } else {
+                            buttonConfirm();
+                          }
+                        },
+                        child: const Text(
+                          "Ya",
+                          style: TextStyle(color: offGrey),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    ).then((value) => value ?? false); // Ensuring a non-null return value
+  }
+}

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_minder/utils/colors.dart';
 
 class AlertData extends StatefulWidget {
-  const AlertData({Key? key}) : super(key: key);
+  const AlertData({super.key});
 
   @override
   _AlertDataState createState() => _AlertDataState();

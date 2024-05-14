@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:time_minder/database/db_helper.dart';
-import 'package:time_minder/pages/timer_player.dart';
+import 'package:time_minder/pages/view_list_timer_page.dart';
 import 'package:time_minder/utils/colors.dart';
 
 
@@ -13,8 +13,7 @@ typedef ModalCloseCallback = void Function(int? id);
 class ListTimerPageNoHold extends StatefulWidget {
   final bool isSettingPressed;
 
-  const ListTimerPageNoHold({Key? key, required this.isSettingPressed})
-      : super(key: key);
+  const ListTimerPageNoHold({super.key, required this.isSettingPressed});
 
   @override
   State<ListTimerPageNoHold> createState() => _ListTimerPageNoHoldState();
@@ -42,65 +41,6 @@ class _ListTimerPageNoHoldState extends State<ListTimerPageNoHold> {
       _allData = data;
       isLoading = false;
     });
-  }
-
-  // delete data
-  void _deleteData(int id) async {
-    await SQLHelper.deleteData(id);
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        backgroundColor: Colors.redAccent,
-        content: Text("Data deleted"),
-        duration: Duration(milliseconds: 500),
-      ));
-    }
-    _refreshData();
-  }
-
-  void _showModal(ModalCloseCallback onClose, [int? id]) async {
-    if (id != null) {
-      final existingData =
-          _allData.firstWhere((element) => element['id'] == id);
-      _namaTimerController.text = existingData['title'];
-      _deskripsiController.text = existingData['description'];
-      counter = existingData['time'] ?? 0;
-      counterBreakTime = existingData['rest'] ?? 0;
-      counterInterval = existingData['interval'] ?? 0;
-    } else {
-      _namaTimerController.text = '';
-      _deskripsiController.text = '';
-      setState(() {
-        counter = 0;
-      });
-      counterBreakTime = 0;
-      counterInterval = 0;
-    }
-
-    final newData = await showCupertinoModalPopup(
-      context: context,
-      builder: (_) => Stack(
-        children: [
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 50, sigmaY: 50),
-            child: Container(
-              color: Colors.transparent,
-            ),
-          ),
-          // Modal content
-          Center(
-            child: Container(
-              margin: const EdgeInsets.only(top: 150),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(70),
-              ),
-              // child: DisplayModal(id: id),
-            ),
-          ),
-        ],
-      ),
-    );
-    onClose(newData);
-    _refreshData();
   }
 
   @override
