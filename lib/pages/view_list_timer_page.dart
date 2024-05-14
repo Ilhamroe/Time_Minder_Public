@@ -146,7 +146,7 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
           _showNotification("Waktunya Istirahat");
         }
         if (_jobsTimer[_currentJobIndex].type == 'FOKUS') {
-          _player.play(AssetSource('sounds/jobs_focus.wav'));
+          _player.play(AssetSource('sounds/job_focus.wav'));
           _showNotification("Istirahat Selesai");
         }
       } else {
@@ -331,7 +331,7 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                                   width: screenSize.width * 0.23.w,
                                   height: screenSize.width * 0.23.h,
                                 ),
-                                )
+                              )
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
@@ -494,13 +494,14 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
             borderRadius: BorderRadius.circular(10.0).w,
           ),
           content: SizedBox(
-            width: screenSize.width * 0.68.w,
-            height: screenSize.height * 0.42.h,
+            width: screenSize.width * 0.55.w,
+            height: screenSize.height * 0.30.h,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: screenSize.height * 0.2.h,
+                  height: screenSize.height * 0.14.h,
                   child: SvgPicture.asset(
                     'assets/images/confirm_popup.svg',
                     fit: BoxFit.contain,
@@ -510,21 +511,12 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                 ),
                 Text(
                   (_jobsTimer[_currentJobIndex].type == 'ISTIRAHAT')
-                      ? "Progress tidak tersimpan,"
-                      : 'Kembali ke Beranda,',
+                      ? "Progress tidak tersimpan,\napakah anda yakin?"
+                      : 'Apakah kamu yakin\nmenyelesaikan timer?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Nunito',
-                    fontSize: 15.sp,
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                Text(
-                  "Apakah Anda yakin?",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Nunito',
-                    fontSize: 21.sp,
+                    fontSize: 19.sp,
                   ),
                 ),
                 SizedBox(height: 20.h),
@@ -588,13 +580,14 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
             borderRadius: BorderRadius.circular(10.0).w,
           ),
           content: SizedBox(
-            width: screenSize.width * 0.68.w,
-            height: screenSize.height * 0.42.h,
+            width: screenSize.width * 0.55.w,
+            height: screenSize.height * 0.30.h,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: screenSize.height * 0.2.h,
+                  height: screenSize.height * 0.14.h,
                   child: SvgPicture.asset(
                     'assets/images/confirm_popup.svg',
                     fit: BoxFit.contain,
@@ -604,21 +597,12 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
                 ),
                 Text(
                   (_jobsTimer[_currentJobIndex].type == 'ISTIRAHAT')
-                      ? "Progress tidak tersimpan,"
-                      : 'Kembali ke Beranda,',
+                      ? "Progress tidak tersimpan,\napakah anda yakin?"
+                      : 'Apakah kamu yakin\nmenyelesaikan timer?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Nunito',
-                    fontSize: 15.sp,
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                Text(
-                  "Apakah Anda yakin?",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Nunito',
-                    fontSize: 21.sp,
+                    fontSize: 19.sp,
                   ),
                 ),
                 SizedBox(height: 20.h),

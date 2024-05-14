@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_minder/utils/colors.dart';
-import 'package:time_minder/widgets/faq_page/help_widget1.dart';
+import 'package:time_minder/widgets/common/help_content.dart';
+import 'package:time_minder/widgets/common/slide_image.dart';
+import 'package:time_minder/widgets/common/spacing.dart';
 
 class HelpFive extends StatefulWidget {
   const HelpFive({super.key});
@@ -47,6 +50,7 @@ class _HelpFiveState extends State<HelpFive> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: pureWhite,
       appBar: AppBar(
@@ -58,27 +62,26 @@ class _HelpFiveState extends State<HelpFive> with TickerProviderStateMixin {
             },
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
-              width: 28,
-              height: 28,
+              width: 28.w,
+              height: 28.h,
             )),
         title: Text(
           "Fitur Detail Timer dan Kalender",
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: MediaQuery.of(context).size.width * 0.0525,
+            fontFamily: 'Nunito_bold',
+            fontSize: 19.sp,
           ),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * 0.05),
+        padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.05).w,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.0175,
+                height: screenSize.height * 0.0175.h,
               ),
               Row(
                 children: [
@@ -86,8 +89,10 @@ class _HelpFiveState extends State<HelpFive> with TickerProviderStateMixin {
                       child: Text(
                     "Apa itu fitur detail timer dan kalender?",
                     style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.0425,
-                        fontWeight: FontWeight.bold),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Nunito',
+                    ),
                   )),
                 ],
               ),
@@ -96,35 +101,49 @@ class _HelpFiveState extends State<HelpFive> with TickerProviderStateMixin {
                   desc:
                       "Fitur “Detail Timer” dan “Kalender” merupakan fitur baru yang ada pada aplikasi TimeMinder, fitur ini memungkinkan kamu untuk melihat informasi lebih lanjut tentang Timer yang telah kamu jalankan pada hari tersebut."),
               const CustomSpace(),
-              const HelpContent(
-                  desc:
-                      "Ini adalah Detail Timer dan Kalender Anda. Jika Anda memilih tanggal dimana Anda tidak menambahkan timer pada hari tersebut, maka Detail Timer menunjukkan bahwa history timer pada hari tersebut kosong."),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SlideImage(
-                      image: "assets/images/help/help5-1.svg",
-                      offsetAnimation: offsetAnimation,
-                      width: 450,
-                      height: 450),
-                ],
-              ),
-              const CustomSpace(),
-              const CustomSpace(),
-              const HelpContent(
-                  desc:
-                      "Sebaliknya, jika Anda melihat tanggal dimana Anda menambahkan timer pada hari tersebut, maka akan terlihat riwayat timer yang telah Anda tambahkan"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SlideImage(
-                      image: "assets/images/help/help5-2.svg",
-                      offsetAnimation: offsetAnimation2,
-                      width: 450,
-                      height: 450),
+                    image: "assets/images/helps/help5-3.jpg",
+                    offsetAnimation: offsetAnimation,
+                    width: 300.w,
+                    height: 100.h,
+                  ),
                 ],
               ),
               const BigSpace(),
+              const HelpContent(
+                  desc:
+                      "Ini adalah Detail Timer dan Kalender Anda. Jika Anda memilih tanggal dimana Anda tidak menambahkan timer pada hari tersebut, maka Detail Timer menunjukkan bahwa history timer pada hari tersebut kosong."),
+              const CustomSpace(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SlideImage(
+                    image: "assets/images/helps/help5-1.png",
+                    offsetAnimation: offsetAnimation,
+                    width: 300.w,
+                    height: 300.h,
+                  ),
+                ],
+              ),
+              const BigSpace(),
+              const HelpContent(
+                  desc:
+                      "Sebaliknya, jika Anda melihat tanggal dimana Anda menambahkan timer pada hari tersebut, maka akan terlihat riwayat timer yang telah Anda tambahkan"),
+              const CustomSpace(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SlideImage(
+                    image: "assets/images/helps/help5-2.png",
+                    offsetAnimation: offsetAnimation2,
+                    width: 300.w,
+                    height: 300.h,
+                  ),
+                ],
+              ),
               const BigSpace(),
             ],
           ),

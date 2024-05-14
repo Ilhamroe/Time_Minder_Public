@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:time_minder/widgets/faq_page/help_widget1.dart';
+import 'package:time_minder/widgets/common/help_content.dart';
+import 'package:time_minder/widgets/common/slide_image.dart';
+import 'package:time_minder/widgets/common/spacing.dart';
 import 'package:time_minder/utils/colors.dart';
 
 class HelpThree extends StatefulWidget {
@@ -47,14 +49,14 @@ class _HelpThreeState extends State<HelpThree>
             padding: const EdgeInsets.only(left: 20).w,
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
-              width: 28,
-              height: 28,
+              width: 28.w,
+              height: 28.h,
             )),
         title: Text(
-          "Fitur izinkan latar belakang",
+          "Menghapus Timer",
           style: TextStyle(
             fontFamily: 'Nunito_bold',
-            fontSize: screenSize.width * 0.0525,
+            fontSize: 19.sp,
           ),
         ),
         centerTitle: true,
@@ -62,46 +64,119 @@ class _HelpThreeState extends State<HelpThree>
         surfaceTintColor: pureWhite,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: screenSize.width * 0.05),
+        padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.05).w,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: screenSize.height * 0.0175,
+                height: screenSize.height * 0.0175.h,
               ),
               Row(
                 children: [
                   Flexible(
                       child: Text(
-                    "Apakah bisa timer dijalankan di latar belakang?",
+                    "Bagaimana jika saya ingin menghapus timer yang telah saya tambahkan?",
                     style: TextStyle(
-                        fontSize: screenSize.width * 0.0425,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Nunito',),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Nunito',
+                    ),
                   )),
                 ],
               ),
               const CustomSpace(),
               const HelpContent(
                   desc:
-                      "Timer pada TimeMinder dapat dijalankan di latar belakang, dimana memungkinkan untuk tetap menggunakan perangkat yang kamu pakai untuk melakukan kegiatan lain sambil tetap melacak waktu fokus dan istirahat."),
+                      "Jika kamu ingin menghapus timer yang telah kamu tambahkan sebelumnya, pergi ke menu “Timer” pada navigation bar yang terletak di bagian bawah aplikasi."),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/helps/help3-1.jpg",
+                    width: 300.w,
+                    height: 100.h,
+                  ),
+                ],
+              ),
+              const BigSpace(),
               const HelpContent(
                   desc:
-                      "Saat kamu akan keluar dari timer dengan menekan tombol kembali baik menggunakan button navigation atau gesture navigation, pastikan untuk mengaktifkan izin latar belakang saat akan keluar dari aplikasi TimeMinder agar timer dapat tetap berjalan di latar belakang sehingga memastikan fungsi ini berjalan dengan lancar."),
-              const CustomSpace(),
+                      "Pada menu ini akan terlihat beberapa timer yang telah kamu tambahkan sebelumnya."),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SlideImage(
-                      image: "assets/images/help/help3-1.png",
+                      image: "assets/images/helps/help3-2.jpg",
                       offsetAnimation: offsetAnimation,
-                      width: 350,
-                      height: 350),
+                      width: 300.w,
+                      height: 300.h),
                 ],
               ),
               const BigSpace(),
+              Row(
+                children: [
+                  const Flexible(
+                      child: HelpContent(
+                          desc:
+                              "Untuk menghapus, tap lama atau hold pada timer yang ingin kamu hapus")),
+                  Image.asset(
+                    "assets/images/helps/help3-3.jpg",
+                    height: 200.h,
+                    width: 200.w,
+                  )
+                ],
+              ),
+              const BigSpace(),
+              const HelpContent(
+                  desc:
+                      "Kemudian akan muncul icon tempat sampah dibagian atas aplikasi"),
+              const CustomSpace(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/helps/help3-4.jpg",
+                    height: 150.h,
+                    width: 150.w,
+                  ),
+                  Image.asset(
+                    "assets/images/helps/help3-7.jpg",
+                    height: 150.h,
+                    width: 150.w,
+                  ),
+                ],
+              ),
+              const BigSpace(),
+              const HelpContent(
+                  desc:
+                      "Tekan icon tempat sampah tersebut. Konfirmasi apakah kamu benar-benar akan menghapus timer tersebut"),
+              const CustomSpace(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/helps/help3-5.jpg",
+                    height: 300.h,
+                    width: 300.w,
+                  )
+                ],
+              ),
+              const BigSpace(),
+              const HelpContent(
+                desc: "Maka timer akan dihapus dari daftar timermu",
+              ),
+              const CustomSpace(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/helps/help3-6.jpg",
+                    height: 300.h,
+                    width: 300.w,
+                  )
+                ],
+              ),
               const BigSpace(),
             ],
           ),

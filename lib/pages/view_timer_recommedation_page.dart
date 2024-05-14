@@ -349,17 +349,19 @@ class _TimerState extends State<TimerView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          surfaceTintColor: pureWhite,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0).w,
           ),
           content: SizedBox(
-            width: screenSize.width * 0.68.w,
-            height: screenSize.height * 0.42.h,
+            width: screenSize.width * 0.55.w,
+            height: screenSize.height * 0.30.h,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: screenSize.height * 0.2.h,
+                  height: screenSize.height * 0.14.h,
                   child: SvgPicture.asset(
                     'assets/images/confirm_popup.svg',
                     fit: BoxFit.contain,
@@ -368,23 +370,14 @@ class _TimerState extends State<TimerView> {
                   ),
                 ),
                 Text(
-                  "Kembali ke Beranda,",
+                  'Apakah kamu yakin\nmenyelesaikan timer?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Nunito',
-                    fontSize: 15.sp,
+                    fontSize: 19.sp,
                   ),
                 ),
-                SizedBox(height: 20.0.h),
-                Text(
-                  "Apakah Anda yakin?",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Nunito',
-                    fontSize: 21.sp,
-                  ),
-                ),
-                SizedBox(height: 20.0.h),
+                SizedBox(height: 20.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -440,13 +433,14 @@ class _TimerState extends State<TimerView> {
             borderRadius: BorderRadius.circular(10.0).w,
           ),
           content: SizedBox(
-            width: screenSize.width * 0.68.w,
-            height: screenSize.height * 0.42.h,
+            width: screenSize.width * 0.55.w,
+            height: screenSize.height * 0.30.h,
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: screenSize.height * 0.2.h,
+                  height: screenSize.height * 0.14.h,
                   child: SvgPicture.asset(
                     'assets/images/confirm_popup.svg',
                     fit: BoxFit.contain,
@@ -455,20 +449,11 @@ class _TimerState extends State<TimerView> {
                   ),
                 ),
                 Text(
-                  "Kembali ke Beranda,",
+                  'Apakah kamu yakin\nmenyelesaikan timer?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Nunito',
-                    fontSize: 15.sp,
-                  ),
-                ),
-                SizedBox(height: 20.h),
-                Text(
-                  "Apakah Anda yakin?",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Nunito',
-                    fontSize: 21.sp,
+                    fontSize: 19.sp,
                   ),
                 ),
                 SizedBox(height: 20.h),
@@ -493,7 +478,7 @@ class _TimerState extends State<TimerView> {
                     SizedBox(width: 30.w),
                     Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0).r,
+                        borderRadius: BorderRadius.circular(10.0).w,
                         color: ripeMango,
                       ),
                       child: TextButton(

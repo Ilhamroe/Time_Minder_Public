@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:time_minder/widgets/faq_page/help_widget1.dart';
+import 'package:time_minder/widgets/common/help_content.dart';
+import 'package:time_minder/widgets/common/slide_image.dart';
+import 'package:time_minder/widgets/common/spacing.dart';
 import 'package:time_minder/utils/colors.dart';
 
 class HelpFour extends StatefulWidget {
@@ -59,14 +61,14 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
             padding: const EdgeInsets.only(left: 20).w,
             icon: SvgPicture.asset(
               "assets/images/button_back.svg",
-              width: 28,
-              height: 28,
+              width: 28.w,
+              height: 28.h,
             )),
         title: Text(
           "Fitur Timer Selesai",
           style: TextStyle(
             fontFamily: 'Nunito_bold',
-            fontSize: screenSize.width * 0.0525,
+            fontSize: 19.sp,
           ),
         ),
         centerTitle: true,
@@ -74,14 +76,13 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
         surfaceTintColor: pureWhite,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: screenSize.width * 0.05),
+        padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.05).w,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: screenSize.height * 0.0175,
+                height: screenSize.height * 0.0175.h,
               ),
               Row(
                 children: [
@@ -89,9 +90,10 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
                       child: Text(
                     "Bagaimana cara saya menghentikan timer yang berjalan?",
                     style: TextStyle(
-                        fontSize: screenSize.width * 0.0425,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Nunito',),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Nunito',
+                    ),
                   )),
                 ],
               ),
@@ -104,32 +106,29 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SlideImage(
-                      image: "assets/images/help/help4-1.png",
-                      offsetAnimation: offsetAnimation,
-                      width: 350,
-                      height: 350),
+                    image: "assets/images/helps/help4-1.jpg",
+                    offsetAnimation: offsetAnimation,
+                    width: 300.w,
+                    height: 300.h,
+                  ),
                 ],
               ),
               const BigSpace(),
               const HelpContent(
                   desc:
-                      "Akan muncul konfirmasi apakah kamu ingin menghentikan timer atau tidak."),
+                      "Akan muncul konfirmasi, apakah kamu ingin menghentikan timer atau tidak. Jika iya maka timer akan berhenti beroperasi"),
               const CustomSpace(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SlideImage(
-                      image: "assets/images/help/help4-2.png",
-                      offsetAnimation: offsetAnimation2,
-                      width: 350,
-                      height: 350),
+                    image: "assets/images/helps/help4-2.jpg",
+                    offsetAnimation: offsetAnimation2,
+                    width: 300.w,
+                    height: 300.h,
+                  ),
                 ],
               ),
-              const CustomSpace(),
-              const HelpContent(
-                  desc:
-                      "Tekan “Iya” untuk mengakhiri sesi fokus dan istirahat kamu, maka timer akan berhenti beroperasi."),
-              const BigSpace(),
               const BigSpace(),
             ],
           ),

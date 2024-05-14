@@ -24,12 +24,11 @@ class _FaqPageState extends State<FaqPage> {
     },
     {
       "id": 1,
-      "title":
-          "Bagaimana jika ingin mengedit atau menghapus timer yang telah ditambahkan?",
+      "title": "Bagaimana jika ingin mengedit timer yang telah ditambahkan?",
     },
     {
       "id": 2,
-      "title": "Apakah bisa timer dijalankan di latar belakang?",
+      "title": "Bagaimana jika ingin menghapus timer yang telah ditambahkan?",
     },
     {
       "id": 3,
@@ -52,7 +51,7 @@ class _FaqPageState extends State<FaqPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const NavbarBottom(),
+                  builder: (context) => const NavbarBottom()
                 ),
               );
             },
@@ -106,47 +105,46 @@ class _FaqPageState extends State<FaqPage> {
                   itemCount: _items.length,
                   itemBuilder: (_, index) {
                     final item = _items[index];
-                    return InkWell(
-                      onTap: () {
-                        switch (index) {
-                          case 0:
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HelpOne()));
-                            break;
-                          case 1:
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HelpTwo()));
-                            break;
-                          case 2:
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HelpThree()));
-                            break;
-                          case 3:
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HelpFour()));
-                            break;
-                          case 4:
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HelpFive()));
-                            break;
-
-                          default:
-                            break;
-                        }
-                      },
-                      child: Padding(
-                        padding:
-                            EdgeInsets.only(bottom: screenSize.height * 0.02).h,
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: screenSize.height * 0.02).h,
+                      child: InkWell(
+                        onTap: () {
+                          switch (index) {
+                            case 0:
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HelpOne()));
+                              break;
+                            case 1:
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HelpTwo()));
+                              break;
+                            case 2:
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HelpThree()));
+                              break;
+                            case 3:
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HelpFour()));
+                              break;
+                            case 4:
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const HelpFive()));
+                              break;
+                      
+                            default:
+                              break;
+                          }
+                        },
                         child: ListTile(
                           title: Text(
                             item['title'],

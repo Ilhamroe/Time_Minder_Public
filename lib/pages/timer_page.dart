@@ -271,13 +271,15 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                                           BorderRadius.circular(10.0).w,
                                     ),
                                     content: SizedBox(
-                                      width: screenSize.width * 0.68.w,
-                                      height: screenSize.height * 0.42.h,
+                                      width: screenSize.width * 0.55.w,
+                                      height: screenSize.height * 0.30.h,
                                       child: Column(
-                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        // mainAxisSize: MainAxisSize.min,
                                         children: [
                                           SizedBox(
-                                            height: screenSize.height * 0.2.h,
+                                            height: screenSize.height * 0.14.h,
                                             child: SvgPicture.asset(
                                               'assets/images/confirm_popup.svg',
                                               fit: BoxFit.contain,
@@ -286,23 +288,14 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                                             ),
                                           ),
                                           Text(
-                                            "Timer akan dihapus,",
+                                            'Timer akan dihapus\napakah anda yakin?',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Nunito',
-                                              fontSize: 15.sp,
+                                              fontSize: 19.sp,
                                             ),
                                           ),
-                                          SizedBox(height: 20.0.h),
-                                          Text(
-                                            "Apakah Anda yakin?",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Nunito',
-                                              fontSize: 21.sp,
-                                            ),
-                                          ),
-                                          SizedBox(height: 20.0.h),
+                                          SizedBox(height: 20.h),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
@@ -379,7 +372,7 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
             ],
             backgroundColor: pureWhite,
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(60.0.h),
+              preferredSize: Size.fromHeight(62.0.h),
               child: TabBar(
                 controller: tabController,
                 physics: const NeverScrollableScrollPhysics(),
