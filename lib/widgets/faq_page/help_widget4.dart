@@ -106,7 +106,7 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
                   SlideImage(
                       image: "assets/images/help/help4-1.png",
                       offsetAnimation: offsetAnimation,
-                      // width: 350,
+                      width: 350,
                       height: 350),
                 ],
               ),
@@ -121,7 +121,7 @@ class _HelpFourState extends State<HelpFour> with TickerProviderStateMixin {
                   SlideImage(
                       image: "assets/images/help/help4-2.png",
                       offsetAnimation: offsetAnimation2,
-                      // width: 350,
+                      width: 350,
                       height: 350),
                 ],
               ),

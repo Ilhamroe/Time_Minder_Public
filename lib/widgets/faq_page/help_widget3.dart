@@ -97,7 +97,7 @@ class _HelpThreeState extends State<HelpThree>
                   SlideImage(
                       image: "assets/images/help/help3-1.png",
                       offsetAnimation: offsetAnimation,
-                      // width: 350,
+                      width: 350,
                       height: 350),
                 ],
               ),
