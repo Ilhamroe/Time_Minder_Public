@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:time_minder/database/db_helper.dart';
 import 'package:time_minder/services/onboarding_routes.dart';
@@ -193,6 +194,7 @@ class _EditModalState extends State<EditModal> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
     return Dialog(
       backgroundColor: Colors.transparent,
       insetPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -229,7 +231,7 @@ class _EditModalState extends State<EditModal> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 6.4),
+                SizedBox(height: 6.4.h),
                 const CustomTextField(labelText: "Nama Timer : "),
                 TextField(
                   maxLength: 20,
@@ -239,7 +241,7 @@ class _EditModalState extends State<EditModal> {
                     counterText: '',
                   ),
                 ),
-                const SizedBox(height: 6.4),
+                SizedBox(height: 6.4.h),
                 const CustomTextField(labelText: "Deskripsi : "),
                 TextField(
                   maxLength: 30,
@@ -255,13 +257,13 @@ class _EditModalState extends State<EditModal> {
                   children: [
                     const CustomTextField(
                         labelText: "Waktu Fokus (dalam menit)"),
-                    const SizedBox(height: 15),
+                    SizedBox(height: 15.h),
                     SettingTimeWidget(
                       key: _settingTimeWidgetKey,
                       initialCounter: _counter,
                       onChanged: _handleTimerChange,
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -273,13 +275,13 @@ class _EditModalState extends State<EditModal> {
                           icon: isOptionOpen
                               ? SvgPicture.asset(
                                   "assets/images/option_up.svg",
-                                  width: 28,
-                                  height: 28,
+                                  width: 28.w,
+                                  height: 28.h,
                                 )
                               : SvgPicture.asset(
                                   "assets/images/option.svg",
-                                  width: 28,
-                                  height: 28,
+                                  width: 28.w,
+                                  height: 28.h,
                                   color: darkGrey,
                                 ),
                         ),
@@ -294,7 +296,7 @@ class _EditModalState extends State<EditModal> {
                             color: Colors.grey,
                             thickness: 1,
                           ),
-                          const SizedBox(height: 9.1),
+                          SizedBox(height: 9.1.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -312,7 +314,7 @@ class _EditModalState extends State<EditModal> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 9.1),
+                          SizedBox(height: 9.1.h),
                           const Divider(
                             color: Colors.grey,
                             thickness: 1,
@@ -320,20 +322,20 @@ class _EditModalState extends State<EditModal> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Row(
+                              Row(
                                 children: [
-                                  Expanded(
+                                  const Expanded(
                                     child: CustomTextField(
                                         labelText: "Durasi Istirahat"),
                                   ),
-                                  SizedBox(width: 15),
-                                  Expanded(
+                                  SizedBox(width: 15.w),
+                                  const Expanded(
                                     child: CustomTextField(
                                         labelText: "Jumlah Istirahat"),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 14.6),
+                              SizedBox(height: 14.6.h),
                               SettingBreakWidget(
                                 key: _settingBreakWidgetKey,
                                 statusSwitch: statusSwitch,
@@ -347,7 +349,7 @@ class _EditModalState extends State<EditModal> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 10.4),
+                    SizedBox(height: 10.4.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -360,7 +362,7 @@ class _EditModalState extends State<EditModal> {
                             onPressed: _resetSetting,
                           ),
                         ),
-                        const SizedBox(width: 14.6),
+                        SizedBox(width: 14.6.w),
                         Expanded(
                           child: CustomButton(
                             text: 'Terapkan',
