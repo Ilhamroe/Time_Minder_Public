@@ -85,13 +85,14 @@ class _FaqPageState extends State<FaqPage> {
                   width: screenSize.width * 0.56.w,
                   child: Text(
                     "Halo! Mindy siap memberikan informasi yang kamu perlukan.",
-                    style: TextStyle(fontSize: 18.sp, fontFamily: 'Nunito-Bold'),
+                    style: TextStyle(fontSize: 15.sp, fontFamily: 'Nunito-Bold'),
                   ),
                 ),
                 SizedBox(
                   child: SvgPicture.asset(
                     "assets/images/cat_hello.svg",
-                    height: screenSize.height * 0.06.h,
+                    height: 50.h,
+                    width: 50.h,
                     fit: BoxFit.fitHeight,
                   ),
                 ),

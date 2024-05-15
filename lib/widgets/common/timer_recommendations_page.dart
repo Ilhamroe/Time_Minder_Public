@@ -165,7 +165,7 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
                                 "pilih",
                                 style: TextStyle(
                                   fontFamily: 'Nunito',
-                                  fontSize: screenSize.width * 0.025.sp,
+                                  fontSize: 9.sp,
                                   color: pureWhite,
                                 ),
                               )
@@ -173,7 +173,7 @@ class _RecommendationTimerPageState extends State<RecommendationTimerPage> {
                                 "Mulai",
                                 style: TextStyle(
                                   fontFamily: 'Nunito',
-                                  fontSize: screenSize.width * 0.025.sp,
+                                  fontSize: 9.sp,
                                   color: pureWhite,
                                 ),
                               ),

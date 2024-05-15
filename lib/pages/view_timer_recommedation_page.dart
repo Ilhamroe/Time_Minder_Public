@@ -151,7 +151,7 @@ class _TimerState extends State<TimerView> {
             height: screenSize.height,
             padding: EdgeInsets.symmetric(
               horizontal: screenSize.width * 0.1.w,
-              vertical: screenSize.height * 0.1.w,
+              vertical: screenSize.height * 0.05.w,
             ).w,
             child: Center(
               child: Column(

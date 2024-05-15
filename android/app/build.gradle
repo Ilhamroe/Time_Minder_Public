@@ -29,7 +29,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.example.time_minder"
+    namespace "com.a3.time_minder"
     compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

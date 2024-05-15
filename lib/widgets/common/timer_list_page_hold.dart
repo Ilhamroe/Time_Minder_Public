@@ -154,7 +154,7 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
                                         "pilih",
                                         style: TextStyle(
                                           fontFamily: 'Nunito',
-                                          fontSize: screenSize.width * 0.025.w,
+                                          fontSize: 9.sp,
                                           color: pureWhite,
                                         ),
                                       )
@@ -162,7 +162,7 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
                                         "Mulai",
                                         style: TextStyle(
                                           fontFamily: 'Nunito',
-                                          fontSize: screenSize.width * 0.025.w,
+                                          fontSize: 9.sp,
                                           color: pureWhite,
                                         ),
                                       ),

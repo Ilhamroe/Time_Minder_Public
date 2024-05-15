@@ -260,7 +260,7 @@ class _CombinedTimerPageState extends State<CombinedTimerPage> {
             height: screenSize.height,
             padding: EdgeInsets.symmetric(
               horizontal: screenSize.width * 0.1.w,
-              vertical: screenSize.height * 0.1.w,
+              vertical: screenSize.height * 0.05.w,
             ),
             child: Center(
               child: FutureBuilder<List<Map<String, dynamic>>>(

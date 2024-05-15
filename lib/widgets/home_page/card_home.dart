@@ -92,7 +92,7 @@ class _CardHomeState extends State<CardHome> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Nunito',
-                                  fontSize: screenSize.width * 0.05.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
                                   height: 1.5.h,
                                   color: pureWhite),
@@ -102,7 +102,7 @@ class _CardHomeState extends State<CardHome> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Nunito-Bold',
-                                  fontSize: screenSize.width * 0.067.sp,
+                                  fontSize: 21.sp,
                                   color: pureWhite),
                             )
                           ],
