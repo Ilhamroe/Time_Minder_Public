@@ -485,25 +485,29 @@ class _TimerPageState extends State<TimerPage> with TickerProviderStateMixin {
                 ).r,
                 children: [
                   _allData.isEmpty
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              "assets/images/cat_setting.svg",
-                              width: screenSize.width * 0.3.w,
-                            ),
-                            SizedBox(height: screenSize.width * 0.02.h),
-                            Text(
-                              "Ayo tambahkan timer sesuai keinginanmu!",
-                              style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontSize: 14.sp,
-                                color: darkGrey,
+                      ? Padding(
+                        padding: const EdgeInsets.only(top: 69.0).w,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                "assets/images/cat_setting.svg",
+                                width: 150.w,
+                                height: 150.h,
                               ),
-                            ),
-                          ],
-                        )
+                              SizedBox(height: screenSize.width * 0.02.h),
+                              Text(
+                                "Ayo tambahkan timer sesuai keinginanmu!",
+                                style: TextStyle(
+                                  fontFamily: 'Nunito',
+                                  fontSize: 14.sp,
+                                  color: darkGrey,
+                                ),
+                              ),
+                            ],
+                          ),
+                      )
                       : ListTimerPageHold(
                           allData: _allData,
                         ),
