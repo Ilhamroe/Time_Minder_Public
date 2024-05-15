@@ -12,20 +12,20 @@ class GridRekomendasi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
+    // final screenSize = MediaQuery.of(context).size;
     return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: screenSize.width < 200.w ? 2 : 3,
-        crossAxisSpacing: screenSize.width * 0.03.w,
+        crossAxisCount: timerList.length,
+        crossAxisSpacing: 12.8.w,
         mainAxisExtent: 187.w,
       ),
       itemCount: timerList.length,
       itemBuilder: (context, int index) {
         return Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(screenSize.width * 0.03.w),
+            borderRadius: BorderRadius.circular(10).w,
             color: offOrange,
           ),
           child: Column(
@@ -34,28 +34,29 @@ class GridRekomendasi extends StatelessWidget {
               Container(
                 // margin: EdgeInsets.only(top: screenSize.width * 0.03.w),
                 padding: EdgeInsets.symmetric(
-                  vertical: screenSize.width * 0.03.w,
-                  horizontal: screenSize.width * 0.04.w,
+                  vertical: 14.w,
+                  horizontal: 14.w,
                 ),
                 decoration: BoxDecoration(
                   borderRadius:
-                      BorderRadius.circular(screenSize.width * 0.04.w),
+                      BorderRadius.circular(16).w,
                   color: heliotrope,
                 ),
                 child: SvgPicture.asset(
                   timerList[index].image,
-                  height: screenSize.width * 0.1.h,
+                  height: 37.h,
+                  width: 37.h,
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(
-                    top: screenSize.width * 0.02,
-                    bottom: screenSize.width * 0.01).w,
+                padding: const EdgeInsets.only(
+                    top: 3.7,
+                    bottom: 4.6).w,
                 child: Text(
                   timerList[index].title,
                   style: TextStyle(
                     fontFamily: 'Nunito',
-                    fontSize: screenSize.width * 0.037.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
                     color: cetaceanBlue,
                   ),
@@ -63,15 +64,15 @@ class GridRekomendasi extends StatelessWidget {
               ),
               // SizedBox(height: screenSize.width * 0.01.h),
               Container(
-                padding: EdgeInsets.only(
-                  bottom: screenSize.width * 0.01,
-                  right: screenSize.width * 0.01,
+                padding: const EdgeInsets.only(
+                  bottom: 5,
+                  right: 3,
                 ).w,
                 child: Text(
                   timerList[index].description,
                   style: TextStyle(
                     fontFamily: 'Nunito',
-                    fontSize: screenSize.width * 0.025.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w800,
                     color: cetaceanBlue,
                   ),
@@ -80,15 +81,15 @@ class GridRekomendasi extends StatelessWidget {
               ),
               // SizedBox(height: screenSize.width * 0.01.h),
               Container(
-                padding: EdgeInsets.only(
-                  bottom: screenSize.width * 0.01,
-                  right: screenSize.width * 0.01,
+                padding: const EdgeInsets.only(
+                  bottom: 5,
+                  right: 3,
                 ).w,
                 child: Text(
                   timerList[index].time,
                   style: TextStyle(
                     fontFamily: 'Nunito',
-                    fontSize: screenSize.width * 0.025.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w800,
                     color: darkGrey,
                   ),
@@ -96,7 +97,7 @@ class GridRekomendasi extends StatelessWidget {
               ),
               // SizedBox(height: screenSize.width * 0.01.h),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenSize.width * 0.015).w,
+                padding: const EdgeInsets.symmetric(horizontal: 10.0).w,
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -107,19 +108,19 @@ class GridRekomendasi extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5).w,
-                    padding: EdgeInsets.symmetric(horizontal: 0.01).w,
+                    margin: const EdgeInsets.symmetric(horizontal: 5.0).w,
+                    padding: const EdgeInsets.symmetric(horizontal: 0.01).w,
                     decoration: BoxDecoration(
                       color: ripeMango,
                       borderRadius:
-                          BorderRadius.circular(screenSize.width * 0.02.w),
+                          BorderRadius.circular(10.w),
                     ),
                     child: Center(
                       child: Text(
                         "Mulai",
                         style: TextStyle(
                           fontFamily: 'Nunito',
-                          fontSize: screenSize.width * 0.035.sp,
+                          fontSize: 14.sp,
                           color: pureWhite,
                         ),
                       ),

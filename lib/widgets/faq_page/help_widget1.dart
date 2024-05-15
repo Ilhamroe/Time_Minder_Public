@@ -128,6 +128,7 @@ class _HelpOneState extends State<HelpOne> with TickerProviderStateMixin {
                               "Masukkan nama timer kamu dan deskripsi dari timer tersebut")),
                 ],
               ),
+              const BigSpace(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
