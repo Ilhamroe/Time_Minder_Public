@@ -74,32 +74,29 @@ class _FaqPageState extends State<FaqPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: screenSize.height * 0.01.h,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                SizedBox(
-                  width: screenSize.width * 0.56.w,
-                  child: Text(
-                    "Halo! Mindy siap memberikan informasi yang kamu perlukan.",
-                    style: TextStyle(fontSize: 15.sp, fontFamily: 'Nunito-Bold'),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12.0).w,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  SizedBox(
+                    width: 200.w,
+                    child: Text(
+                      "Halo! Mindy siap memberikan informasi yang kamu perlukan.",
+                      style: TextStyle(fontSize: 15.sp, fontFamily: 'Nunito-Bold'),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  child: SvgPicture.asset(
-                    "assets/images/cat_hello.svg",
-                    height: 50.h,
-                    width: 50.h,
-                    fit: BoxFit.fitHeight,
+                  SizedBox(
+                    child: SvgPicture.asset(
+                      "assets/images/cat_hello.svg",
+                      height: 50.h,
+                      width: 50.h,
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: screenSize.height * 0.0275.h,
+                ],
+              ),
             ),
             Expanded(
               child: ListView.builder(

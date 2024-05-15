@@ -115,10 +115,8 @@ class _ListTimerPageNoHoldState extends State<ListTimerPageNoHold> {
                 ),
               ),
               trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 12.h,
-                  ),
                   Text(
                     _formatTime(_allData[index]['timer']),
                     style: TextStyle(
@@ -133,7 +131,7 @@ class _ListTimerPageNoHoldState extends State<ListTimerPageNoHold> {
                   ),
                   Container(
                     padding:
-                        EdgeInsets.symmetric(vertical: 1, horizontal: 7).w,
+                        const EdgeInsets.symmetric(vertical: 1, horizontal: 7).w,
                     decoration: BoxDecoration(
                       color: ripeMango,
                       borderRadius: BorderRadius.circular(5).w,

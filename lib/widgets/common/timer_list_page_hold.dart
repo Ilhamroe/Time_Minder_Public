@@ -117,10 +117,8 @@ class _ListTimerPageHoldState extends State<ListTimerPageHold> {
                         ),
                       ),
                       trailing: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            height: 12.h,
-                          ),
                           Text(
                             _formatTime(widget.allData[index]['timer']),
                             style: TextStyle(
