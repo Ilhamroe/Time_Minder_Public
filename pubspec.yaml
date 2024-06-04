@@ -33,6 +33,11 @@ dependencies:
   table_calendar: ^3.1.1
   tutorial_coach_mark: ^1.2.11
   provider: ^6.1.2
+  uuid: ^4.4.0
+  dio: ^5.4.3+1
+  flutter_dotenv: ^5.1.0
+  device_info_plus: ^10.1.0
+  package_info_plus: ^8.0.0
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +51,7 @@ flutter:
     - assets/images/helps/
     - assets/fonts/
     - assets/sounds/
+    - .env
   fonts:
     - family: Nunito-Bold
       fonts:
